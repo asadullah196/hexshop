@@ -31,4 +31,5 @@
 </head>
 
 <body <?php body_class(); ?>>
-    <?php //hexshop_header_parts(); ?>
+    <!-- Calling from template functions -->
+    <?php hexshop_header_parts(); ?>
