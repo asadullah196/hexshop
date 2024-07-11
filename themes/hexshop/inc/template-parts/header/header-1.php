@@ -21,6 +21,19 @@
                         <!-- ***** Logo End ***** -->
 
                         <!-- ***** Menu Start ***** -->
+                        <!-- Calling from template functions file -->
+                        <?php
+                            if(has_nav_menu('primary-menu')) {
+                                hexshop_primary_menus();
+                            } else { ?>
+                                <ul class="nav">
+                                    <p><?php echo esc_html__('Sorry, the menu is not set yet!', 'hexshop'); ?></p>
+                                </ul>
+                            <?php
+                            }
+                        ?>
+                        
+                        <!--
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#men">Men's</a></li>
@@ -45,7 +58,8 @@
                                 </ul>
                             </li>
                             <li class="scroll-to-section"><a href="#explore">Explore</a></li>
-                        </ul>        
+                        </ul> 
+                        -->       
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
