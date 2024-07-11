@@ -43,3 +43,71 @@ function hexshop_primary_menus(){
         ) 
     );
 }
+
+
+// Hexshop widget register area
+function hexshop_widgets_init() {
+
+	// Sidebar widget
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar Widgets', 'hexshop' ),
+			'id'            => 'hexshop-sidebar',
+			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
+			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	// All footer widgets
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 1- Left Widgets', 'hexshop' ),
+			'id'            => 'footer-1',
+			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
+			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 2 - Center Left', 'hexshop' ),
+			'id'            => 'footer-2',
+			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
+			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 3 - Center Right', 'hexshop' ),
+			'id'            => 'footer-3',
+			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
+			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 4 - Right', 'hexshop' ),
+			'id'            => 'footer-4',
+			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
+			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="">',
+			'after_title'   => '</h4>',
+		)
+	);
+}
+add_action( 'widgets_init', 'hexshop_widgets_init' );
