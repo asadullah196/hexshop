@@ -13,6 +13,8 @@
  */
 ?>
 
+    <?php hexshop_footer_parts(); ?>
+
     <script>
 
         $(function() {

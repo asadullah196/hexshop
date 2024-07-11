@@ -13,6 +13,11 @@ function hexshop_header_parts(){
     get_template_part( 'inc/template-parts/header/header-1' );
 }
 
+// Footer template calling
+function hexshop_footer_parts(){
+    get_template_part( 'inc/template-parts/footer/footer-1' );
+}
+
 // hexshop header section logo
 function hexshop_header_logo(){
     
@@ -54,7 +59,7 @@ function hexshop_widgets_init() {
 			'name'          => esc_html__( 'Sidebar Widgets', 'hexshop' ),
 			'id'            => 'hexshop-sidebar',
 			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
-			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'before_widget' => '<div id="%1$s" class="first-item %2$s">',
 			'after_widget'  => '</div>',
             'before_title'  => '<h4 class="">',
 			'after_title'   => '</h4>',
@@ -67,7 +72,7 @@ function hexshop_widgets_init() {
 			'name'          => esc_html__( 'Footer 1- Left Widgets', 'hexshop' ),
 			'id'            => 'footer-1',
 			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
-			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'before_widget' => '<div id="%1$s" class="%2$s">',
 			'after_widget'  => '</div>',
             'before_title'  => '<h4 class="">',
 			'after_title'   => '</h4>',
@@ -79,7 +84,7 @@ function hexshop_widgets_init() {
 			'name'          => esc_html__( 'Footer 2 - Center Left', 'hexshop' ),
 			'id'            => 'footer-2',
 			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
-			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'before_widget' => '<div id="%1$s" class="%2$s">',
 			'after_widget'  => '</div>',
             'before_title'  => '<h4 class="">',
 			'after_title'   => '</h4>',
@@ -91,7 +96,7 @@ function hexshop_widgets_init() {
 			'name'          => esc_html__( 'Footer 3 - Center Right', 'hexshop' ),
 			'id'            => 'footer-3',
 			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
-			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'before_widget' => '<div id="%1$s" class="%2$s">',
 			'after_widget'  => '</div>',
             'before_title'  => '<h4 class="">',
 			'after_title'   => '</h4>',
@@ -103,7 +108,7 @@ function hexshop_widgets_init() {
 			'name'          => esc_html__( 'Footer 4 - Right', 'hexshop' ),
 			'id'            => 'footer-4',
 			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
-			'before_widget' => '<div id="%1$s" class="col-lg-3 %2$s">',
+			'before_widget' => '<div id="%1$s" class="%2$s">',
 			'after_widget'  => '</div>',
             'before_title'  => '<h4 class="">',
 			'after_title'   => '</h4>',
@@ -111,3 +116,19 @@ function hexshop_widgets_init() {
 	);
 }
 add_action( 'widgets_init', 'hexshop_widgets_init' );
+
+// Hexshop copyright
+function hexshop_copyright(){
+    $copyright_text = get_theme_mod('sadaka_copyright_text','Copyright © Sadaka theme designed & developed by <a href="https://sapwp.com" class="text-white primary-hover">Saptheme 2024</a>');
+
+    if ( !empty($copyright_text) ) : ?>
+        <div class="footer__copytext">
+            <p class="wow fadeInDown" data-wow-delay="400ms" data-wow-duration="1500ms"><?php echo sadaka_kses($copyright_text,'sadaka'); ?></p>
+        </div>
+    <?php else : ?>
+        <div class="footer__copytext">
+            <p class="wow fadeInDown" data-wow-delay="400ms" data-wow-duration="1500ms"><?php echo esc_html__('Add copyright text here', 'sadaka'); ?></p>
+        </div>
+    <?php endif;
+	
+}
