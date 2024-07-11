@@ -138,11 +138,11 @@ class Hexshop_Walker_Nav_Menu extends Walker {
 		$classes[] = 'menu-item-' . $menu_item->ID;
         
 		// 1st li custom class
-		$classes[] = '';
+		$classes[] = 'scroll-to-section';
 
         // if html li has custom dropdown class 
         if($args->walker->has_children == true) {
-		    $classes[] = '';
+		    $classes[] = 'submenu';
         }
 		
 		// sub-menu ul li ul li

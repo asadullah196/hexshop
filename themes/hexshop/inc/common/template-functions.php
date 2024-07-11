@@ -35,11 +35,11 @@ function hexshop_primary_menus(){
         array( 
             'theme_location'  => 'primary-menu',
 			'container' => false, // div class, make it false to avoid div generation
-            'menu_class'      => '', // ul class
+            'menu_class'      => 'nav', // ul class
             'menu_id'         => '', // ul id
             'fallback_cb'     => 'Hexshop_Walker_Nav_Menu::fallback',
             'walker'     	  => new Hexshop_Walker_Nav_Menu,
-			'depth'           => 2,
+			'depth'           => 3,
         ) 
     );
 }

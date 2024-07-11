@@ -34,7 +34,7 @@
                         ?>
                         
                         <!--
-                        <ul class="nav">
+                        <ul class="">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#men">Men's</a></li>
                             <li class="scroll-to-section"><a href="#women">Women's</a></li>
