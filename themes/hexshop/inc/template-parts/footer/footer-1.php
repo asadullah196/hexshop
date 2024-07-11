@@ -45,26 +45,26 @@
                         <?php hexshop_copyright(); ?>
                         <?php if ('true' == $social_switch) : ?>
                         <ul>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $facebook_switch) : ?>
+                            <li><a href="<?php echo esc_url($facebook_url); ?>"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $x_switch) : ?>
+                            <li><a href="<?php echo esc_url($x_url); ?>"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $instagram_switch) : ?>
+                            <li><a href="<?php echo esc_url($instagram_url); ?>"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $linkedin_switch) : ?>
+                            <li><a href="<?php echo esc_url($linkedin_url); ?>"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $youtube_switch) : ?>
+                            <li><a href="<?php echo esc_url($youtube_url); ?>"><i class="fa fa-youtube-square" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $pinterest_switch) : ?>
+                            <li><a href="<?php echo esc_url($pinterest_url); ?>"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
-                            <?php if ('true' == $social_switch) : ?>
-                            <li><a href="#"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></li>
+                            <?php if ('true' == $other_switch) : ?>
+                            <li><a href="<?php echo esc_url($other_url); ?>"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></li>
                             <?php endif; ?>
                         </ul>
                         <?php endif; ?>
