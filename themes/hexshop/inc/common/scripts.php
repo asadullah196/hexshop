@@ -12,6 +12,7 @@ function hexshop_theme_scripts() {
     wp_enqueue_style( 'owl-carousel',  HEXSHOP_CSS.'owl-carousel.css', array(), '1.0.0', 'all' );
     wp_enqueue_style( 'lightbox',  HEXSHOP_CSS.'lightbox.css', array(), '1.0.0', 'all' );
     wp_enqueue_style( 'hexshop-main',  HEXSHOP_CSS.'templatemo-hexashop.css', array(), '1.0.0', 'all' );
+    wp_enqueue_style( 'hexshop-custom',  HEXSHOP_CSS.'custom.css', array(), '1.0.0', 'all' );
 	wp_enqueue_style( 'hexshop-style', get_stylesheet_uri() );
 
     // All JS

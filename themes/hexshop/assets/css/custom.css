@@ -1,0 +1,9 @@
+/* All the custom css */
+.logo img {
+    max-width: 300px !important;
+}
+
+.no-logo {
+    position: absolute;
+    top: 50%;
+}

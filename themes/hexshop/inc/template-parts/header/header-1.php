@@ -15,11 +15,11 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
+                    
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png">
-                        </a>
+                        <?php hexshop_header_logo(); ?>
                         <!-- ***** Logo End ***** -->
+
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
