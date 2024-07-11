@@ -55,13 +55,6 @@ function hexshop_theme_support(){
 }
 add_action('after_setup_theme','hexshop_theme_support');
 
-// Plugin activation notice file calling
-
-// TGM plugin activation recommended plugin
-if ( file_exists( get_template_directory() . '/inc/init-plugins/init-hexshop-plugin.php' ) ) {
-    require_once( get_template_directory() . '/inc/init-plugins/init-hexshop-plugin.php' );
-}
-
 // All the theme script calling
 if( class_exists ( 'Kirki' ) ){
 	include_once('inc/common/kirki.php');
