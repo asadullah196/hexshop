@@ -119,16 +119,17 @@ add_action( 'widgets_init', 'hexshop_widgets_init' );
 
 // Hexshop copyright
 function hexshop_copyright(){
-    $copyright_text = get_theme_mod('sadaka_copyright_text','Copyright © Sadaka theme designed & developed by <a href="https://sapwp.com" class="text-white primary-hover">Saptheme 2024</a>');
 
-    if ( !empty($copyright_text) ) : ?>
-        <div class="footer__copytext">
-            <p class="wow fadeInDown" data-wow-delay="400ms" data-wow-duration="1500ms"><?php echo sadaka_kses($copyright_text,'sadaka'); ?></p>
-        </div>
+    $developer_switch = get_theme_mod('hexshop_developer_switch', false);
+    $developer_text = get_theme_mod('hexshop_devs_copyright_text','Design: TemplateMo');
+    $copyright_text = get_theme_mod('hexshop_copyright_text','Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.');
+
+    if ( !empty($copyright_text) and ('true' == $developer_switch)) : ?>
+        <p><?php echo wp_kses_post($copyright_text . "<br/>" . $developer_text); ?></p>
+    <?php elseif (!empty($copyright_text)) : ?>
+        <p><?php echo wp_kses_post($copyright_text,'hexshop'); ?></p>
     <?php else : ?>
-        <div class="footer__copytext">
-            <p class="wow fadeInDown" data-wow-delay="400ms" data-wow-duration="1500ms"><?php echo esc_html__('Add copyright text here', 'sadaka'); ?></p>
-        </div>
+        <p class=""><?php echo esc_html__('Add copyright text here', 'hexshop'); ?></p>
     <?php endif;
 	
 }

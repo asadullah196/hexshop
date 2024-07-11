@@ -5,8 +5,8 @@ new \Kirki\Panel(
     'hexshop_theme_options',
     [
         'priority'      => 10,
-        'title'         => esc_html__( 'Theme Options', 'sadaka' ),
-        'description'   => esc_html__( 'Hexshop Options Panel', 'sadaka' ),
+        'title'         => esc_html__( 'Theme Options', 'hexshop' ),
+        'description'   => esc_html__( 'Hexshop Options Panel', 'hexshop' ),
     ]
 );
 
@@ -16,8 +16,8 @@ function hexshop_header_section() {
     new \Kirki\Section(
         'hexshop_header_section',
         [
-            'title'       => esc_html__( 'Header Section', 'sadaka' ),
-            'description' => esc_html__( 'Control header section', 'sadaka' ),
+            'title'       => esc_html__( 'Header Section', 'hexshop' ),
+            'description' => esc_html__( 'Control header section', 'hexshop' ),
             'panel'       => 'hexshop_theme_options',
             'priority'    => 160,
         ]
@@ -27,8 +27,8 @@ function hexshop_header_section() {
     new \Kirki\Field\Image(
         [
             'settings' 		=> 'hexshop_header_logo_image',
-            'label'    		=> esc_html__( 'Logo', 'sadaka' ),
-			'description' 	=> esc_html__( 'The saved photo will be your logo', 'sadaka' ),
+            'label'    		=> esc_html__( 'Logo', 'hexshop' ),
+			'description' 	=> esc_html__( 'The saved photo will be your logo', 'hexshop' ),
             'section'  		=> 'hexshop_header_section',
             'default'  		=> get_template_directory_uri() . '/assets/images/logo.png',
 			'priority'    	=> 10,
@@ -36,3 +36,207 @@ function hexshop_header_section() {
     );
 }
 hexshop_header_section();
+
+// Hexshop theme footer section
+function hexshop_footer_settings() {
+    new \Kirki\Section(
+        'hexshop_footer_settings',
+        [
+            'title'       => esc_html__( 'Footer Section', 'hexshop' ),
+            'description' => esc_html__( 'Update copyright section details', 'hexshop' ),
+            'panel'       => 'hexshop_theme_options',
+            'priority'    => 160,
+        ]
+    );
+
+    // Show developer
+    new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_developer_switch',
+            'label'       => esc_html__( 'Display developer text', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'off',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+     // Show social
+    new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_social_switch',
+            'label'       => esc_html__( 'Display Socials', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'on',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    // Copyright text
+    new \Kirki\Field\Text(
+        [
+            'settings' => 'hexshop_copyright_text',
+            'label'    => esc_html__( 'Copyright Message', 'hexshop' ),
+            'section'  => 'hexshop_footer_settings',
+            'default'  => esc_html__( 'Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.', 'hexshop' ),
+            'priority' => 10,
+        ]
+    );
+
+    // Developer copyright text
+    new \Kirki\Field\Text(
+        [
+            'settings' => 'hexshop_devs_copyright_text',
+            'label'    => esc_html__( 'Copyright developer info', 'hexshop' ),
+            'section'  => 'hexshop_footer_settings',
+            'default'  => esc_html__( 'Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a>', 'hexshop' ),
+            'priority' => 10,
+        ]
+    );
+    
+    
+    new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_facebook_switch',
+            'label'       => esc_html__( 'Display Facebook', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'on',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'sadaka_facebook_url',
+			'label'    => esc_html__( 'Facebook URL', 'sadaka' ),
+			'section'  => 'hexshop_footer_settings',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+
+        new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_x_switch',
+            'label'       => esc_html__( 'Display X', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'on',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'sadaka_x_url',
+			'label'    => esc_html__( 'X URL', 'sadaka' ),
+			'section'  => 'hexshop_footer_settings',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+
+        new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_instagram_switch',
+            'label'       => esc_html__( 'Display Instagram', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'on',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'sadaka_instagram_url',
+			'label'    => esc_html__( 'Instagram URL', 'sadaka' ),
+			'section'  => 'hexshop_footer_settings',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+
+        new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_linkedin_switch',
+            'label'       => esc_html__( 'Display LinkedIn', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'off',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'sadaka_linkedin_url',
+			'label'    => esc_html__( 'LinkedIn URL', 'sadaka' ),
+			'section'  => 'hexshop_footer_settings',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+
+        new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_pinterest_switch',
+            'label'       => esc_html__( 'Display Pinterest', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'off',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'sadaka_pinterest_url',
+			'label'    => esc_html__( 'Pinterest URL', 'sadaka' ),
+			'section'  => 'hexshop_footer_settings',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+
+        new \Kirki\Field\Checkbox_Switch(
+        [
+            'settings'    => 'hexshop_other_switch',
+            'label'       => esc_html__( 'Others', 'sadaka' ),
+            'section'     => 'hexshop_footer_settings',
+            'default'     => 'off',
+            'choices'     => [
+                'on'  => esc_html__( 'Show', 'sadaka' ),
+                'off' => esc_html__( 'Hide', 'sadaka' ),
+            ],
+        ]
+    );
+
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'sadaka_others_url',
+			'label'    => esc_html__( 'Others URL', 'sadaka' ),
+			'section'  => 'hexshop_footer_settings',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+
+}
+hexshop_footer_settings();
