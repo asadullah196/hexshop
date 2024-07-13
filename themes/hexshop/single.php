@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="right-content">
-                        <?php if ( is_active_sidebar( 'sadaka-sidebar' ) ) : ?>
+                        <?php if ( is_active_sidebar( 'hexshop-sidebar' ) ) : ?>
                             <?php get_sidebar(); ?>
                         <?php else : ?>
                             <h3><?php echo esc_html__('No Sidebar Added','sadaka'); ?></h3>
