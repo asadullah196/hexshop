@@ -12,3 +12,10 @@
     padding-top: 120px;
     text-align: center;
 }
+
+.btn-text {
+    padding: 20px 40px;
+    background: #F74F22;
+    color: #fff;
+    border-radius: 5px;
+}

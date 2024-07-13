@@ -263,3 +263,60 @@ function hexshop_footer_settings() {
 
 }
 hexshop_footer_settings();
+
+// hexshop 404 error page
+function hexshop_error_page() {
+    new \Kirki\Section(
+        'hexshop_error_page',
+        [
+            'title'       => esc_html__( '404 Page', 'hexshop' ),
+            'description' => esc_html__( 'Error page settings', 'hexshop' ),
+            'panel'       => 'hexshop_theme_options',
+            'priority'    => 160,
+        ]
+    );
+
+    // Error page main image
+    new \Kirki\Field\Image(
+        [
+            'settings' 		=> 'hexshop_error_page_image',
+            'label'    		=> esc_html__( 'Shape Right', 'hexshop' ),
+            'section'  		=> 'hexshop_error_page',
+            'default'  		=> get_template_directory_uri() . '/assets/images/404.png',
+			'priority'    	=> 10,
+        ]
+    );
+
+    // Error page heading
+    new \Kirki\Field\Text(
+        [
+            'settings' => 'hexshop_error_page_heading',
+            'label'    => esc_html__( 'Error Heading', 'hexshop' ),
+            'section'  => 'hexshop_error_page',
+            'default'  => esc_html__( 'Whoops! This Page got Lost in conversation!', 'hexshop' ),
+            'priority' => 10,
+        ]
+    );
+
+    // Error page button
+    new \Kirki\Field\Text(
+        [
+            'settings' => 'hexshop_error_page_button_text',
+            'label'    => esc_html__( 'Button Text', 'hexshop' ),
+            'section'  => 'hexshop_error_page',
+            'default'  => esc_html__( 'Back To Home Page', 'hexshop' ),
+            'priority' => 10,
+        ]
+    );
+    
+    new \Kirki\Field\URL(
+		[
+			'settings' => 'hexshop_error_page_bar_button_url',
+			'label'    => esc_html__( 'Button URL', 'hexshop' ),
+			'section'  => 'hexshop_error_page',
+			'default'  => '#',
+			'priority' => 10,
+		]
+	);
+}
+hexshop_error_page();

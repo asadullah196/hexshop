@@ -16,10 +16,10 @@
 
     get_header();
 
-    $error_page_image = get_theme_mod('hexshop_404_image', get_template_directory_uri() . '/assets/images/404.png');
-    $error_page_heading = get_theme_mod('hexshop_404_heading','Whoops! This Page got Lost in conversation!');
-    $error_page_btn_text = get_theme_mod('hexshop_404_button_text','Back to Home');
-    $error_page_btn_url = get_theme_mod('hexshop_404_button_url', '#');
+    $error_page_image = get_theme_mod('hexshop_error_page_image', get_template_directory_uri() . '/assets/images/404.png');
+    $error_page_heading = get_theme_mod('hexshop_error_page_heading','Whoops! This Page got Lost in conversation!');
+    $error_page_btn_text = get_theme_mod('hexshop_error_page_button_text','Back to Home');
+    $error_page_btn_url = get_theme_mod('hexshop_error_page_bar_button_url', '#');
 ?>
 
 <main>
@@ -33,7 +33,9 @@
                         <img src="<?php echo esc_url($error_page_image); ?>" alt="image">
                     </div>
                 <?php endif; ?>
+                <br/><br/>
                 <h2><?php echo esc_html__($error_page_heading,'hexshop'); ?></h2>
+                <br/><br/>
                 <div class="btn-two mt-50">
                     <span class="btn-circle">
                     </span>
