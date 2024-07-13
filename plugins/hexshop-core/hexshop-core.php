@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Elementor Hello World
- * Description: Elementor sample plugin.
- * Plugin URI:  https://elementor.com/
+ * Plugin Name: Hexshop Core
+ * Description: Hexshop Core plugin enable all the elementor widget for hexshop theme.
+ * Plugin URI:  https://sapwp.com/hexshop
  * Version:     1.2.1
  * Author:      Author Name
- * Author URI:  https://elementor.com/
- * Text Domain: elementor-hello-world
+ * Author URI:  https://hexshop.com/
+ * Text Domain: hexshop-core
  * Elementor tested up to: 3.5.0
  * Elementor Pro tested up to: 3.5.0
  */
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Any custom code should go inside Plugin Class in the plugin.php file.
  * @since 1.2.0
  */
-final class Elementor_Hello_World {
+final class Elementor_Hexshop_Core {
 
 	/**
 	 * Plugin Version
@@ -113,9 +113,9 @@ final class Elementor_Hello_World {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'elementor-hello-world' ),
-			'<strong>' . esc_html__( 'Elementor Hello World', 'elementor-hello-world' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'elementor-hello-world' ) . '</strong>'
+			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'hexshop-core' ),
+			'<strong>' . esc_html__( 'Elementor Hello World', 'hexshop-core' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'hexshop-core' ) . '</strong>'
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
@@ -136,9 +136,9 @@ final class Elementor_Hello_World {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-hello-world' ),
-			'<strong>' . esc_html__( 'Elementor Hello World', 'elementor-hello-world' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'elementor-hello-world' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'hexshop-core' ),
+			'<strong>' . esc_html__( 'Elementor Hello World', 'hexshop-core' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'hexshop-core' ) . '</strong>',
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
@@ -160,9 +160,9 @@ final class Elementor_Hello_World {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-hello-world' ),
-			'<strong>' . esc_html__( 'Elementor Hello World', 'elementor-hello-world' ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', 'elementor-hello-world' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'hexshop-core' ),
+			'<strong>' . esc_html__( 'Elementor Hello World', 'hexshop-core' ) . '</strong>',
+			'<strong>' . esc_html__( 'PHP', 'hexshop-core' ) . '</strong>',
 			self::MINIMUM_PHP_VERSION
 		);
 
@@ -170,5 +170,5 @@ final class Elementor_Hello_World {
 	}
 }
 
-// Instantiate Elementor_Hello_World.
-new Elementor_Hello_World();
+// Instantiate Elementor_Hexshop_Core.
+new Elementor_Hexshop_Core();

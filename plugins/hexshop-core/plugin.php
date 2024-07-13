@@ -48,7 +48,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		wp_register_script( 'elementor-hello-world', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery' ], false, true );
+		wp_register_script( 'hexshop-core', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery' ], false, true );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Plugin {
 		add_filter( 'script_loader_tag', [ $this, 'editor_scripts_as_a_module' ], 10, 2 );
 
 		wp_enqueue_script(
-			'elementor-hello-world-editor',
+			'hexshop-core-editor',
 			plugins_url( '/assets/js/editor/editor.js', __FILE__ ),
 			[
 				'elementor-editor',
@@ -84,7 +84,7 @@ class Plugin {
 	 * @return string
 	 */
 	public function editor_scripts_as_a_module( $tag, $handle ) {
-		if ( 'elementor-hello-world-editor' === $handle ) {
+		if ( 'hexshop-core-editor' === $handle ) {
 			$tag = str_replace( '<script', '<script type="module"', $tag );
 		}
 

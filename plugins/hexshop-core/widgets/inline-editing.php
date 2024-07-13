@@ -7,51 +7,47 @@ use Elementor\Controls_Manager;
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Elementor Hello World
- *
- * Elementor widget for hello world.
- *
- * @since 1.0.0
+ * @since 1.1.0
  */
-class Hello_World extends Widget_Base {
+class Inline_Editing extends Widget_Base {
 
 	/**
 	 * Retrieve the widget name.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access public
 	 *
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'hello-world';
+		return 'inline-editing-example';
 	}
 
 	/**
 	 * Retrieve the widget title.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access public
 	 *
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Hello World', 'elementor-hello-world' );
+		return __( 'Inline Editing', 'hexshop-core' );
 	}
 
 	/**
 	 * Retrieve the widget icon.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access public
 	 *
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'eicon-posts-ticker';
+		return 'fa fa-pencil';
 	}
 
 	/**
@@ -62,7 +58,7 @@ class Hello_World extends Widget_Base {
 	 * Note that currently Elementor supports only one category.
 	 * When multiple categories passed, Elementor uses the first one.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access public
 	 *
@@ -73,26 +69,11 @@ class Hello_World extends Widget_Base {
 	}
 
 	/**
-	 * Retrieve the list of scripts the widget depended on.
-	 *
-	 * Used to set scripts dependencies required to run the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 *
-	 * @return array Widget scripts dependencies.
-	 */
-	public function get_script_depends() {
-		return [ 'elementor-hello-world' ];
-	}
-
-	/**
 	 * Register the widget controls.
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access protected
 	 */
@@ -100,45 +81,37 @@ class Hello_World extends Widget_Base {
 		$this->start_controls_section(
 			'section_content',
 			[
-				'label' => __( 'Content', 'elementor-hello-world' ),
+				'label' => __( 'Content', 'hexshop-core' ),
 			]
 		);
 
 		$this->add_control(
 			'title',
 			[
-				'label' => __( 'Title', 'elementor-hello-world' ),
+				'label' => __( 'Title', 'hexshop-core' ),
 				'type' => Controls_Manager::TEXT,
-			]
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_style',
-			[
-				'label' => __( 'Style', 'elementor-hello-world' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'default' => __( 'Title', 'hexshop-core' ),
 			]
 		);
 
 		$this->add_control(
-			'text_transform',
+			'description',
 			[
-				'label' => __( 'Text Transform', 'elementor-hello-world' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '',
-				'options' => [
-					'' => __( 'None', 'elementor-hello-world' ),
-					'uppercase' => __( 'UPPERCASE', 'elementor-hello-world' ),
-					'lowercase' => __( 'lowercase', 'elementor-hello-world' ),
-					'capitalize' => __( 'Capitalize', 'elementor-hello-world' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .title' => 'text-transform: {{VALUE}};',
-				],
+				'label' => __( 'Description', 'hexshop-core' ),
+				'type' => Controls_Manager::TEXTAREA,
+				'default' => __( 'Description', 'hexshop-core' ),
 			]
 		);
+
+		$this->add_control(
+			'content',
+			[
+				'label' => __( 'Content', 'hexshop-core' ),
+				'type' => Controls_Manager::WYSIWYG,
+				'default' => __( 'Content', 'hexshop-core' ),
+			]
+		);
+
 
 		$this->end_controls_section();
 	}
@@ -148,16 +121,21 @@ class Hello_World extends Widget_Base {
 	 *
 	 * Written in PHP and used to generate the final HTML.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access protected
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		echo '<div class="title">';
-		echo $settings['title'];
-		echo '</div>';
+		$this->add_inline_editing_attributes( 'title', 'none' );
+		$this->add_inline_editing_attributes( 'description', 'basic' );
+		$this->add_inline_editing_attributes( 'content', 'advanced' );
+		?>
+		<h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+		<div <?php echo $this->get_render_attribute_string( 'description' ); ?>><?php echo $settings['description']; ?></div>
+		<div <?php echo $this->get_render_attribute_string( 'content' ); ?>><?php echo $settings['content']; ?></div>
+		<?php
 	}
 
 	/**
@@ -165,15 +143,20 @@ class Hello_World extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @access protected
 	 */
 	protected function content_template() {
 		?>
-		<div class="title">
-			{{{ settings.title }}}
-		</div>
+		<#
+		view.addInlineEditingAttributes( 'title', 'none' );
+		view.addInlineEditingAttributes( 'description', 'basic' );
+		view.addInlineEditingAttributes( 'content', 'advanced' );
+		#>
+		<h2 {{{ view.getRenderAttributeString( 'title' ) }}}>{{{ settings.title }}}</h2>
+		<div {{{ view.getRenderAttributeString( 'description' ) }}}>{{{ settings.description }}}</div>
+		<div {{{ view.getRenderAttributeString( 'content' ) }}}>{{{ settings.content }}}</div>
 		<?php
 	}
 }
