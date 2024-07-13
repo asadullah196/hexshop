@@ -9,7 +9,7 @@ use ElementorHelloWorld\PageSettings\Page_Settings;
  * Main Plugin class
  * @since 1.2.0
  */
-class Plugin {
+class Hexshop_Core_Plugin {
 
 	/**
 	 * Instance
@@ -49,6 +49,18 @@ class Plugin {
 	 */
 	public function widget_scripts() {
 		wp_register_script( 'hexshop-core', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery' ], false, true );
+	}
+
+	/** Register new category */
+	public function hexshop_add_widget_categories( $hexshop_add_category ) {
+
+		$hexshop_add_category->add_category(
+			'hexshop-category',
+			[
+				'title' => esc_html__( 'hexshop Widgets', 'hexshop-core' ),
+				'icon' => 'fa fa-plug',
+			]
+		);
 	}
 
 	/**
@@ -103,12 +115,10 @@ class Plugin {
 	 */
 	public function register_widgets( $widgets_manager ) {
 		// Its is now safe to include Widgets files
-		require_once( __DIR__ . '/widgets/hello-world.php' );
-		require_once( __DIR__ . '/widgets/inline-editing.php' );
+		require_once( __DIR__ . '/widgets/contact.php' );
 
 		// Register Widgets
-		$widgets_manager->register( new Widgets\Hello_World() );
-		$widgets_manager->register( new Widgets\Inline_Editing() );
+		$widgets_manager->register( new Widgets\Hexshop_Contact() );
 	}
 
 	/**
@@ -140,6 +150,9 @@ class Plugin {
 		// Register widgets
 		add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
 
+		// Register category
+		add_action( 'elementor/elements/categories_registered', [ $this, 'hexshop_add_widget_categories'] );
+
 		// Register editor scripts
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'editor_scripts' ] );
 		
@@ -148,4 +161,4 @@ class Plugin {
 }
 
 // Instantiate Plugin Class
-Plugin::instance();
+Hexshop_Core_Plugin::instance();

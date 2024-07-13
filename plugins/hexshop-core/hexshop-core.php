@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Any custom code should go inside Plugin Class in the plugin.php file.
  * @since 1.2.0
  */
-final class Elementor_Hexshop_Core {
+final class Hexshop_Core_Elementor {
 
 	/**
 	 * Plugin Version
@@ -170,5 +170,5 @@ final class Elementor_Hexshop_Core {
 	}
 }
 
-// Instantiate Elementor_Hexshop_Core.
-new Elementor_Hexshop_Core();
+// Instantiate Hexshop_Core_Elementor.
+new Hexshop_Core_Elementor();
