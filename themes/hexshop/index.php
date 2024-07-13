@@ -28,11 +28,20 @@
                     <?php while( have_posts()  ) : the_post(); ?>
                     <div class="col-lg-4"><br/>
                         <div class="service-item">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/service-01.jpg" alt="">
+                            <?php if(has_post_thumbnail()) : ?>
+                            <img src="<?php echo esc_html(the_post_thumbnail_url()); ?>" alt="">
                             <br/><br/>
-                            <h4>Synther Vaporware</h4>
-                            <p>Lorem ipsum dolor sit amet, consecteturti adipiscing elit, sed do eiusmod temp incididunt ut labore, et dolore quis ipsum suspend.</p>
-                            <a href="#">Read Full Blog</a>
+                            <?php endif; ?>
+                            <h4><a href="<?php the_permalink( ); ?>"><?php the_title(); ?></a></h4>
+                            <p>
+                                <?php 
+                                    $post_content = get_the_content();
+                                    $word_limit = !empty($blog_archive_description) ? $blog_archive_description : 20;
+                                    $trimmed_content = wp_trim_words($post_content, $word_limit);
+                                    echo $trimmed_content;
+                                ?>
+                            </p>
+                            <a href="<?php the_permalink( ); ?>">Read Full Blog</a>
                         </div>
                     </div>
                     <?php endwhile; ?>
