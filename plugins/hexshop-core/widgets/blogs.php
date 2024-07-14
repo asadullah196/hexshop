@@ -107,61 +107,103 @@ class Hexshop_Blogs extends Widget_Base {
 	protected function register_controls_content() {
 
 		$this->start_controls_section(
-			'contact_content',
+			'blog_content',
 			[
-				'label' => __( 'Content', 'hexshop-main' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Blog Post', 'sadaka-core' ),
+				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
-			'heading',
+			'post_per_page',
 			[
-				'label' => esc_html__( 'Title', 'hexshop-main' ),
+				'label' => esc_html__( 'Post Per Page', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+				'default' => 3,
+			]
+		);
+
+		$this->add_control(
+			'category_list',
+			[
+				'label' => esc_html__( 'Category', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::SELECT2,
 				'label_block' => true,
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Say Hello. Dont Be Shy!', 'hexshop-main' ),
-				'placeholder' => esc_html__( 'Type your title here', 'hexshop-main' ),
+				'multiple' => true,
+				'options' => post_cat(),
 			]
 		);
 
 		$this->add_control(
-			'display_description',
+			'category_exclude',
 			[
-				'label' => esc_html__( 'Show Description', 'hexshop-main' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Show', 'hexshop-main' ),
-				'label_off' => esc_html__( 'Hide', 'hexshop-main' ),
-				'return_value' => 'yes',
-				'default' => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'description',
-			[
-				'label' => esc_html__( 'Description', 'hexshop-main' ),
+				'label' => esc_html__( 'Category Exclude', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::SELECT2,
 				'label_block' => true,
-				'type' => \Elementor\Controls_Manager::WYSIWYG,
-				'default' => esc_html__( 'Details to details is what makes Hexashop different from the other themes.', 'hexshop-main' ),
-				'condition' => [
-					'display_description' => 'yes',
+				'multiple' => true,
+				'options' => post_cat(),
+			]
+		);
+
+		$this->add_control(
+			'post_exclude',
+			[
+				'label' => esc_html__( 'Post Exclude', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple' => true,
+				'options' => get_all_post(),
+			]
+		);
+
+		$this->add_control(
+			'blog_order',
+			[
+				'label' => esc_html__( 'Order', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'ASC',
+				'options' => [
+					'ASC' => esc_html__( 'ASC', 'sadaka-core' ),
+					'DFESC'  => esc_html__( 'DESC', 'sadaka-core' ),
 				],
 			]
 		);
 
 		$this->add_control(
-			'shortcode',
+			'order_by',
 			[
-				'label' => esc_html__( 'Short Code', 'hexshop-main' ),
-				'label_block' => true,
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( '', 'hexshop-main' ),
-				'placeholder' => esc_html__( 'Type your short code here', 'hexshop-main' ),
+				'label' => esc_html__( 'Order By', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'date',
+				'options' => [
+					'name' => esc_html__( 'Name', 'sadaka-core' ),
+					'date'  => esc_html__( 'Date', 'sadaka-core' ),
+					'title'  => esc_html__( 'Title', 'sadaka-core' ),
+					'rand'  => esc_html__( 'Rand', 'sadaka-core' ),
+					'id'  => esc_html__( 'ID', 'sadaka-core' ),
+				],
 			]
 		);
 
-		
+		$this->add_control(
+			'description_word',
+			[
+				'label' => esc_html__( 'Words Per Post', 'sadaka-core' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+				'default' => 30,
+			]
+		);
+
+		$this->add_control(
+			'cta_title',
+			[
+				'label' => esc_html__( 'CTA Text', 'sadaka-main' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( 'Read More', 'sadaka-main' ),
+				'placeholder' => esc_html__( 'Type your text here', 'sadaka-main' ),
+			]
+		);
+
 		$this->end_controls_section();
 	
 	}
@@ -358,36 +400,64 @@ class Hexshop_Blogs extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+
+		$args = array(
+			'post_type' => 'post',
+			'order' => $settings['blog_order'],
+			'orderby' => $settings['order_by'],
+			'posts_per_page' => !empty($settings['post_per_page']) ? $settings['post_per_page'] : -1,
+			'post__not_in'=> $settings['post_exclude'],
+		);
+
+		if(!empty($settings['category_list'] || $settings['category_exclude'] )){
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'category',
+					'field' => 'slug',
+					'terms' => !empty($settings['category_exclude']) ?  $settings['category_exclude'] : $settings['category_list'],
+					'operator' => !empty($settings['category_exclude']) ? 'NOT IN' : 'IN',
+				),
+			);
+		}
+
+		$blog_archive_description = $settings['description_word'];
+
+		$query = new \WP_Query( $args );
+
 		?>
 
-		<div class="contact-area">
-			<div class="section-heading heading_alignment">
-				<h2 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h2>
-				<?php if ('yes' === $settings['display_description']) : ?>
-				<span class="hexshop_sub_title">
-					<?php
-						// Check if Elementor is in edit mode
-						$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
-
-						if ( $is_edit_mode ) {
-							// Output the content with tags in the backend (editor)
-							echo wp_kses_post( $settings['description'] );
-						} else {
-							// Output the content without tags in the frontend
-							echo esc_html__( wp_strip_all_tags( $settings['description'], 'sadaka-core' ) );
-						}
+	<section class="our-blogs">
+        <div class="container">
+            <div class="row">
+                <?php if ( $query->have_posts() ) : ?>
+					<?php while ( $query->have_posts() ) : $query->the_post();
+						$categories = get_the_category(get_the_ID());
 					?>
-				</span>
-				<?php endif; ?>
-			</div><br/>
-			<div class="contact-form">
-				<?php if(!empty($settings['shortcode'])) : ?>
-					<?php echo do_shortcode( $settings['shortcode'] ); ?>
-				<?php else : ?>
-					<p><?php echo esc_html__('Please add Short Code!', 'hexshop-core'); ?></p>
-				<?php endif; ?>
-			</div>
-		</div>
+                    <div class="col-lg-4"><br/>
+                        <div class="service-item">
+                            <?php if(has_post_thumbnail()) : ?>
+                            <img src="<?php echo esc_html(the_post_thumbnail_url()); ?>" alt="">
+                            <br/><br/>
+                            <?php endif; ?>
+                            <h4><a href="<?php the_permalink( ); ?>"><?php the_title(); ?></a></h4>
+							<br/>
+                            <p>
+                                <?php 
+                                    $post_content = get_the_content();
+                                    $word_limit = !empty($blog_archive_description) ? $blog_archive_description : 20;
+                                    $trimmed_content = wp_trim_words($post_content, $word_limit);
+                                    echo $trimmed_content;
+                                ?>
+                            </p>
+							<br/>
+                            <a href="<?php the_permalink( ); ?>"><?php echo esc_html__($settings['cta_title'],'hexshop-core'); ?></a><br/><br/>
+                        </div>
+                    </div>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
 
 		<?php
 	}
