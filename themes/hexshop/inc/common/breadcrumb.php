@@ -62,8 +62,8 @@ $name ='Blog';
         <div class="row">
             <div class="col-lg-12">
                 <div class="inner-content">
-                    <h2>Contact Us</h2>
-                    <span>Awesome, clean &amp; creative HTML5 Template</span>
+                    <h2><?php echo esc_html__($title,'hexshop'); ?></h2>
+                    <span><?php echo esc_html__('Home', 'hexshop'); ?> / <?php echo esc_html__($title,'hexshop'); ?></span>
                 </div>
             </div>
         </div>

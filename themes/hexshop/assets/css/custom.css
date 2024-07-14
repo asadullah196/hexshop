@@ -23,3 +23,7 @@
 .single-blog-thumbnail {
     width: 100%;
 }
+
+.home .page-heading {
+    display: none;
+}

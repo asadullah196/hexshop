@@ -1,7 +1,6 @@
 <?php get_header(); ?>
     
-    <br/><br/>
-    <section class="section" id="product">
+    <section class="section" id="">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
