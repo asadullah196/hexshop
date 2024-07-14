@@ -46,17 +46,6 @@ $name ='Blog';
     $breadcrumb_bg = get_theme_mod('breadcrumb_bg_image', get_template_directory_uri().'/assets/images/banner/banner-inner-page.jpg');
 ?>
 
-<!-- breadcrumb area start --
-<section class="banner__inner-page bg-image pt-160 pb-160 bg-image"
-    data-background="<?php echo esc_url($breadcrumb_bg); ?>">
-    <div class="container">
-        <h2 class="wow fadeInUp" data-wow-delay="00ms" data-wow-duration="1500ms"><?php echo esc_html__($title,'hexshop'); ?></h2>
-        <div class="breadcrumb-list wow fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
-            <a href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html__('Home', 'hexshop'); ?></a><span><i class="fa-regular fa-angles-right mx-2"></i><?php echo esc_html__($title,'hexshop'); ?></span>
-        </div>
-    </div>
-</section> -->
-
 <div class="page-heading" id="top">
     <div class="container">
         <div class="row">
