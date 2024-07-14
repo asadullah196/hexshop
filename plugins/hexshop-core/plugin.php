@@ -57,7 +57,7 @@ class Hexshop_Core_Plugin {
 		$hexshop_add_category->add_category(
 			'hexshop-category',
 			[
-				'title' => esc_html__( 'hexshop Widgets', 'hexshop-core' ),
+				'title' => esc_html__( 'Hexshop Widgets', 'hexshop-core' ),
 				'icon' => 'fa fa-plug',
 			]
 		);

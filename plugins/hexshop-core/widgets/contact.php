@@ -25,7 +25,7 @@ class Hexshop_Contact extends Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'hello-world';
+		return 'hexshop-contact';
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Hexshop_Contact extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Hello World', 'hexshop-core' );
+		return __( 'Contact', 'hexshop-core' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Hexshop_Contact extends Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'general' ];
+		return [ 'hexshop-category' ];
 	}
 
 	/**
@@ -96,51 +96,186 @@ class Hexshop_Contact extends Widget_Base {
 	 *
 	 * @access protected
 	 */
+
 	protected function register_controls() {
+
+		$this -> register_controls_content();
+		$this -> register_controls_style();
+	}
+
+	/** Function for all the content */
+	protected function register_controls_content() {
+
 		$this->start_controls_section(
-			'section_content',
+			'contact_content',
 			[
-				'label' => __( 'Content', 'hexshop-core' ),
+				'label' => __( 'Content', 'hexshop-main' ),
+				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
-			'title',
+			'heading',
 			[
-				'label' => __( 'Title', 'hexshop-core' ),
-				'type' => Controls_Manager::TEXT,
+				'label' => esc_html__( 'Title', 'hexshop-main' ),
+				'label_block' => true,
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( 'Say Hello. Don\'t Be Shy!', 'hexshop-main' ),
+				'placeholder' => esc_html__( 'Type your title here', 'hexshop-main' ),
+			]
+		);
+
+		$this->add_control(
+			'display_description',
+			[
+				'label' => esc_html__( 'Show Description', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Show', 'hexshop-main' ),
+				'label_off' => esc_html__( 'Hide', 'hexshop-main' ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'description',
+			[
+				'label' => esc_html__( 'Description', 'hexshop-main' ),
+				'label_block' => true,
+				'type' => \Elementor\Controls_Manager::WYSIWYG,
+				'default' => esc_html__( 'Details to details is what makes Hexashop different from the other themes.', 'hexshop-main' ),
+				'condition' => [
+					'display_description' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'shortcode',
+			[
+				'label' => esc_html__( 'Short Code', 'hexshop-main' ),
+				'label_block' => true,
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( '', 'hexshop-main' ),
+				'placeholder' => esc_html__( 'Type your short code here', 'hexshop-main' ),
+			]
+		);
+
+		
+		$this->end_controls_section();
+	
+	}
+
+	/** Function for all the style */
+	protected function register_controls_style() {
+
+		$this->start_controls_section(
+			'heading_alignment_style',
+			[
+				'label' => esc_html__( 'Alignment', 'hexshop-main' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'heading_align',
+			[
+				'label' => esc_html__( 'Alignment', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'textdomain' ),
+						'icon' => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'textdomain' ),
+						'icon' => 'eicon-text-align-center',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'textdomain' ),
+						'icon' => 'eicon-text-align-right',
+					],
+				],
+				'default' => 'center',
+				'toggle' => true,
+				'selectors' => [
+					'{{WRAPPER}} .heading_alignment' => 'text-align: {{VALUE}};',
+				],
 			]
 		);
 
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'section_style',
+			'hexshop_heading_sub_title_style',
 			[
-				'label' => __( 'Style', 'hexshop-core' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Sub Heading', 'hexshop-main' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
-			'text_transform',
+			'hexshop_heading_sub_title_margin',
 			[
-				'label' => __( 'Text Transform', 'hexshop-core' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '',
-				'options' => [
-					'' => __( 'None', 'hexshop-core' ),
-					'uppercase' => __( 'UPPERCASE', 'hexshop-core' ),
-					'lowercase' => __( 'lowercase', 'hexshop-core' ),
-					'capitalize' => __( 'Capitalize', 'hexshop-core' ),
+				'label' => esc_html__( 'Margin', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .title' => 'text-transform: {{VALUE}};',
+					'{{WRAPPER}} .hexshop_heading_sub_title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'hexshop_heading_sub_title_padding',
+			[
+				'label' => esc_html__( 'Padding', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_heading_sub_title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'hexshop_heading_sub_title_typography',
+				'selector' => '{{WRAPPER}} .hexshop_heading_sub_title',
+			]
+		);
+
+		$this->add_control(
+			'hexshop_heading_sub_title_color',
+			[
+				'label' => esc_html__( 'Color', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_heading_sub_title' => 'color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->end_controls_section();
+		
 	}
 
 	/**
@@ -160,20 +295,4 @@ class Hexshop_Contact extends Widget_Base {
 		echo '</div>';
 	}
 
-	/**
-	 * Render the widget output in the editor.
-	 *
-	 * Written as a Backbone JavaScript template and used to generate the live preview.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access protected
-	 */
-	protected function content_template() {
-		?>
-		<div class="title">
-			{{{ settings.title }}}
-		</div>
-		<?php
-	}
 }
