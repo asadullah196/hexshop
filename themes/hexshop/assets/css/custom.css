@@ -27,3 +27,40 @@
 .home .page-heading {
     display: none;
 }
+
+.cf-style p{
+    font-size: unset;
+    color: unset;
+    margin-bottom: 30px;
+}
+
+.main-dark-button {
+    padding: 10px 20px;
+    background: #000;
+    color: #fff ;
+    border: 1px solid #000;
+    transition: background 0.5s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.main-dark-button:hover {
+    background: #fff;
+    color: #000 ;
+    border: 1px solid #000;
+}
+
+.text-area {
+    padding: 20px;
+    width: 100%;
+}
+
+/* Input styles */
+.container.cf-style .input-name,
+.container.cf-style .form-email,
+.container.cf-style .text-area {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
