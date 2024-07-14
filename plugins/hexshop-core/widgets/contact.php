@@ -120,7 +120,7 @@ class Hexshop_Contact extends Widget_Base {
 				'label' => esc_html__( 'Title', 'hexshop-main' ),
 				'label_block' => true,
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Say Hello. Don\'t Be Shy!', 'hexshop-main' ),
+				'default' => esc_html__( 'Say Hello. Dont Be Shy!', 'hexshop-main' ),
 				'placeholder' => esc_html__( 'Type your title here', 'hexshop-main' ),
 			]
 		);
@@ -207,15 +207,15 @@ class Hexshop_Contact extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'hexshop_heading_sub_title_style',
+			'heading_style',
 			[
-				'label' => esc_html__( 'Sub Heading', 'hexshop-main' ),
+				'label' => esc_html__( 'Heading', 'hexshop-main' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
-			'hexshop_heading_sub_title_margin',
+			'heading_margin',
 			[
 				'label' => esc_html__( 'Margin', 'hexshop-main' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
@@ -229,13 +229,13 @@ class Hexshop_Contact extends Widget_Base {
 					'isLinked' => false,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .hexshop_heading_sub_title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .hexshop_title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 
 		$this->add_control(
-			'hexshop_heading_sub_title_padding',
+			'heading_padding',
 			[
 				'label' => esc_html__( 'Padding', 'hexshop-main' ),
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
@@ -249,7 +249,7 @@ class Hexshop_Contact extends Widget_Base {
 					'isLinked' => false,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .hexshop_heading_sub_title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .hexshop_title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -257,25 +257,94 @@ class Hexshop_Contact extends Widget_Base {
 		$this->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
 			[
-				'name' => 'hexshop_heading_sub_title_typography',
-				'selector' => '{{WRAPPER}} .hexshop_heading_sub_title',
+				'name' => 'heading_typography',
+				'selector' => '{{WRAPPER}} .hexshop_title',
 			]
 		);
 
 		$this->add_control(
-			'hexshop_heading_sub_title_color',
+			'heading_color',
 			[
 				'label' => esc_html__( 'Color', 'hexshop-main' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
-					'{{WRAPPER}} .hexshop_heading_sub_title' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .hexshop_title' => 'color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->end_controls_section();
 		
+		$this->start_controls_section(
+			'sub_heading_style',
+			[
+				'label' => esc_html__( 'Sub Heading', 'hexshop-main' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'sub_heading_margin',
+			[
+				'label' => esc_html__( 'Margin', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_sub_title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'sub_heading_padding',
+			[
+				'label' => esc_html__( 'Padding', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_sub_title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'sub_heading_typography',
+				'selector' => '{{WRAPPER}} .hexshop_sub_title',
+			]
+		);
+
+		$this->add_control(
+			'sub_heading_color',
+			[
+				'label' => esc_html__( 'Color', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_sub_title' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -289,10 +358,55 @@ class Hexshop_Contact extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		?>
 
-		echo '<div class="title">';
-		echo $settings['title'];
-		echo '</div>';
+		<div class="contact-area">
+			<div class="section-heading heading_alignment">
+				<h2 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h2>
+				<?php if ('yes' === $settings['display_description']) : ?>
+				<span class="hexshop_sub_title">
+					<?php
+						// Check if Elementor is in edit mode
+						$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+
+						if ( $is_edit_mode ) {
+							// Output the content with tags in the backend (editor)
+							echo wp_kses_post( $settings['description'] );
+						} else {
+							// Output the content without tags in the frontend
+							echo esc_html__( wp_strip_all_tags( $settings['description'], 'sadaka-core' ) );
+						}
+					?>
+				</span>
+				<?php endif; ?>
+			</div><br/>
+			<div class="contact-form">
+				<form id="contact" action="" method="post">
+					<div class="row">
+						<div class="col-lg-6">
+						<fieldset>
+							<input name="name" type="text" id="name" placeholder="Your name" required="">
+						</fieldset>
+						</div>
+						<div class="col-lg-6">
+						<fieldset>
+							<input name="email" type="text" id="email" placeholder="Your email" required="">
+						</fieldset>
+						</div>
+						<div class="col-lg-12">
+						<fieldset>
+							<textarea name="message" rows="6" id="message" placeholder="Your message" required=""></textarea>
+						</fieldset>
+						</div>
+						<div class="col-lg-12">
+						<fieldset>
+							<button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<?php
 	}
-
 }
