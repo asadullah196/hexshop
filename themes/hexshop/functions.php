@@ -52,6 +52,9 @@ function hexshop_theme_support(){
 
     // D-register block editor
     remove_theme_support( 'widgets-block-editor' );
+
+    // WooCommerce support
+    add_theme_support( 'woocommerce' );
 }
 add_action('after_setup_theme','hexshop_theme_support');
 
