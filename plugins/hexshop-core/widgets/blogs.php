@@ -321,7 +321,7 @@ class Hexshop_Blogs extends Widget_Base {
 		$this->start_controls_section(
 			'sub_heading_style',
 			[
-				'label' => esc_html__( 'Sub Heading', 'hexshop-main' ),
+				'label' => esc_html__( 'Description', 'hexshop-main' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -387,6 +387,76 @@ class Hexshop_Blogs extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'cta_style',
+			[
+				'label' => esc_html__( 'CTA', 'hexshop-main' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'cta_margin',
+			[
+				'label' => esc_html__( 'Margin', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_cta' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'cta_padding',
+			[
+				'label' => esc_html__( 'Padding', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'cta_typography',
+				'selector' => '{{WRAPPER}} .hexshop_cta',
+			]
+		);
+
+		$this->add_control(
+			'cta_color',
+			[
+				'label' => esc_html__( 'Color', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_cta' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -434,14 +504,14 @@ class Hexshop_Blogs extends Widget_Base {
 						$categories = get_the_category(get_the_ID());
 					?>
                     <div class="col-lg-4"><br/>
-                        <div class="service-item">
+                        <div class="service-item heading_alignment">
                             <?php if(has_post_thumbnail()) : ?>
                             <img src="<?php echo esc_html(the_post_thumbnail_url()); ?>" alt="">
                             <br/><br/>
                             <?php endif; ?>
-                            <h4><a href="<?php the_permalink( ); ?>"><?php the_title(); ?></a></h4>
+                            <h4 class="hexshop_title"><a href="<?php the_permalink( ); ?>"><?php the_title(); ?></a></h4>
 							<br/>
-                            <p>
+                            <p class="hexshop_sub_title">
                                 <?php 
                                     $post_content = get_the_content();
                                     $word_limit = !empty($blog_archive_description) ? $blog_archive_description : 20;
@@ -450,7 +520,7 @@ class Hexshop_Blogs extends Widget_Base {
                                 ?>
                             </p>
 							<br/>
-                            <a href="<?php the_permalink( ); ?>"><?php echo esc_html__($settings['cta_title'],'hexshop-core'); ?></a><br/><br/>
+                            <a href="<?php the_permalink( ); ?>" class="hexshop_cta"><?php echo esc_html__($settings['cta_title'],'hexshop-core'); ?></a><br/><br/>
                         </div>
                     </div>
                     <?php endwhile; ?>
