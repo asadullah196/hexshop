@@ -62,11 +62,9 @@ if( class_exists ( 'Kirki' ) ){
 
 include_once('inc/common/scripts.php');
 include_once('inc/common/nav-walker.php');
+include_once('inc/common/breadcrumb.php');
 include_once('inc/common/template-functions.php');
 
 /*
-
-include_once('inc/common/breadcrumb.php');
 include_once('inc/common/comments-form-list.php');
-
 */
