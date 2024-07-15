@@ -19,4 +19,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="row products columns-<?php echo esc_attr( wc_get_loop_prop( 'columns' ) ); ?>">
+<div class="row row-cols-md-2 row-cols-lg-3 row-cols-<?php echo esc_attr( wc_get_loop_prop( 'columns' ) ); ?> products">
