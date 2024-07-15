@@ -66,6 +66,19 @@ function hexshop_widgets_init() {
 		)
 	);
 
+	// Sidebar service widget
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Service Widgets', 'hexshop' ),
+			'id'            => 'hexshop-sidebar-service',
+			'description'   => esc_html__( 'Add widgets here.', 'hexshop' ),
+			'before_widget' => '<div id="%1$s" class="first-item %2$s">',
+			'after_widget'  => '</div>',
+            'before_title'  => '<h4 class="">',
+			'after_title'   => '</h4>',
+		)
+	);
+
 	// All footer widgets
 	register_sidebar(
 		array(
