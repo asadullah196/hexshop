@@ -115,11 +115,13 @@ class Hexshop_Core_Plugin {
 	 */
 	public function register_widgets( $widgets_manager ) {
 		// Its is now safe to include Widgets files
+		require_once( __DIR__ . '/widgets/heading.php' );
 		require_once( __DIR__ . '/widgets/contact.php' );
 		require_once( __DIR__ . '/widgets/blogs.php' );
 		require_once( __DIR__ . '/widgets/services.php' );
 
 		// Register Widgets
+		$widgets_manager->register( new Widgets\Hexshop_Heading() );
 		$widgets_manager->register( new Widgets\Hexshop_Contact() );
 		$widgets_manager->register( new Widgets\Hexshop_Blogs() );
 		$widgets_manager->register( new Widgets\Hexshop_Services() );
