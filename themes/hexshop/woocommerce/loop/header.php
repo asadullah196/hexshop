@@ -29,9 +29,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 *
 	 * @since 2.0.6.
 	 */
-	if ( apply_filters( 'woocommerce_show_page_title', false ) ) :
+	if ( apply_filters( 'woocommerce_show_page_title', true ) ) :
 		?>
-		<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+		<div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+                        <span>Check out all of our products.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
 	<?php endif; ?>
 
 	<?php
