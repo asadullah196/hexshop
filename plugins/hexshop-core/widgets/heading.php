@@ -349,7 +349,7 @@ class Hexshop_Heading extends Widget_Base {
 		?>
 
 		<div class="contact-area">
-			<div class="section-heading heading_alignment contact__content">
+			<div class="section-heading heading_alignment">
 				<h2 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h2>
 				<?php if ('yes' === $settings['display_description']) : ?>
 				<span class="hexshop_sub_title">
@@ -366,13 +366,6 @@ class Hexshop_Heading extends Widget_Base {
 						}
 					?>
 				</span>
-				<?php endif; ?>
-			</div><br/>
-			<div class="contact-form">
-				<?php if(!empty($settings['shortcode'])) : ?>
-					<?php echo do_shortcode( $settings['shortcode'] ); ?>
-				<?php else : ?>
-					<p><?php echo esc_html__('Please add Short Code!', 'hexshop-core'); ?></p>
 				<?php endif; ?>
 			</div>
 		</div>
