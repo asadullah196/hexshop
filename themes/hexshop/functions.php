@@ -66,6 +66,10 @@ if( class_exists ( 'Kirki' ) ){
 	include_once('inc/common/kirki.php');
 }
 
+if( class_exists ( 'WooCommerce' ) ){
+	include_once('inc/woo.php');
+}
+
 include_once('inc/common/scripts.php');
 include_once('inc/common/nav-walker.php');
 include_once('inc/common/breadcrumb.php');
