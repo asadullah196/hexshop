@@ -361,7 +361,7 @@ class Hexshop_Contact extends Widget_Base {
 		?>
 
 		<div class="contact-area">
-			<div class="section-heading heading_alignment">
+			<div class="section-heading heading_alignment contact__content">
 				<h2 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h2>
 				<?php if ('yes' === $settings['display_description']) : ?>
 				<span class="hexshop_sub_title">
