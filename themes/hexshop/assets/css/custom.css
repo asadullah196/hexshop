@@ -140,3 +140,11 @@
     letter-spacing: 3px;
     display: block;
 }
+
+.woosq-btn-has-icon, .woosw-btn-has-icon{
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border: none;
+}

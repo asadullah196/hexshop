@@ -15,6 +15,12 @@ remove_action('woocommerce_after_shop_loop_item_title','woocommerce_template_loo
 remove_action('woocommerce_after_shop_loop_item','woocommerce_template_loop_product_link_close',5);
 remove_action('woocommerce_after_shop_loop_item','woocommerce_template_loop_add_to_cart',10);
 
+// woo smart plugin position remove 
+add_filter( 'woosw_button_position_archive', '__return_false' );
+add_filter( 'woosw_button_position_single', '__return_false' );
+
+add_filter( 'woosq_button_position', '__return_false' );
+
 // product add to cart button
 function hexshop_wooc_add_to_cart( $args = array() ) {
     global $product;
@@ -82,8 +88,12 @@ function hexshop_product_grid(){
         <div class="thumb">
             <div class="hover-content">
                 <ul>
-                    <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                    <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                    <li>
+                        <?php echo do_shortcode('[woosq]'); ?>
+                    </li>
+                    <li>
+                        <?php echo do_shortcode('[woosw]'); ?>
+                    </li>
                     <li>
                         <?php hexshop_wooc_add_to_cart(); ?>
                     </li>
