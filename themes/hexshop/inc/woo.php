@@ -25,6 +25,31 @@ add_filter( 'woosw_button_position_single', '__return_false' );
 
 add_filter( 'woosq_button_position', '__return_false' );
 
+// Remove from single product page
+add_filter('woocommerce_sale_flash', 'remove_sale_flash_single_product', 10, 2);
+
+function remove_sale_flash_single_product($html, $post) {
+    if (is_product() && $post->post_type === 'product') {
+        return ''; // Remove the sale badge on single product pages
+    }
+    return $html; // Keep the sale badge on archive pages
+}
+
+// Remove default info
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50);
+remove_action('woocommerce_single_product_summary', 'WC_Structured_Data', 60);
+
+// Remove related default info
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15);
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
+
 // product add to cart button
 function hexshop_wooc_add_to_cart( $args = array() ) {
     global $product;
