@@ -14,6 +14,7 @@ remove_action('woocommerce_after_shop_loop_item_title','woocommerce_template_loo
 remove_action('woocommerce_after_shop_loop_item_title','woocommerce_template_loop_price',10);
 remove_action('woocommerce_after_shop_loop_item','woocommerce_template_loop_product_link_close',5);
 remove_action('woocommerce_after_shop_loop_item','woocommerce_template_loop_add_to_cart',10);
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 
 // remove sidebar from product archive page
 remove_action('woocommerce_sidebar','woocommerce_get_sidebar',10);
@@ -23,6 +24,41 @@ add_filter( 'woosw_button_position_archive', '__return_false' );
 add_filter( 'woosw_button_position_single', '__return_false' );
 
 add_filter( 'woosq_button_position', '__return_false' );
+
+// Remove on sale from single product page
+add_filter('woocommerce_sale_flash', 'remove_sale_flash_single_product', 10, 2);
+
+function remove_sale_flash_single_product($html, $post) {
+    if (is_product() && $post->post_type === 'product') {
+        return ''; // Remove the sale badge on single product pages
+    }
+    return $html; // Keep the sale badge on archive pages
+}
+
+// Remove product meta from single product page
+add_action('woocommerce_single_product_summary', 'remove_product_meta_single_product', 0);
+
+function remove_product_meta_single_product() {
+    if (is_product()) {
+        remove_action('woocommerce_single_product_summary', 'woocommerce_product_meta_start', 40);
+        remove_action('woocommerce_single_product_summary', 'woocommerce_product_meta_end', 60);
+        // Remove SKU
+        remove_action('woocommerce_product_meta_start', 'woocommerce_template_single_meta', 10);
+        
+        // Remove categories
+        remove_action('woocommerce_product_meta_end', 'woocommerce_template_single_meta', 10);
+        
+        // Remove description
+        remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
+        
+        // Remove additional information
+        remove_action('woocommerce_product_tabs', 'woocommerce_product_additional_information_tab', 10);
+        
+        // Remove reviews
+        remove_action('woocommerce_product_tabs', 'woocommerce_product_reviews_tab', 10);
+    }
+}
+
 
 // product add to cart button
 function hexshop_wooc_add_to_cart( $args = array() ) {
@@ -116,3 +152,53 @@ function hexshop_product_grid(){
 }
 
 add_action( 'woocommerce_before_shop_loop_item','hexshop_product_grid');
+
+// Single product details
+function hexshop_product_details(){ 
+    global $post;
+    global $product;
+    global $woocommerce;
+
+
+    $rating_count = $product->get_rating_count();
+    $review_count = $product->get_review_count();
+    $average      = $product->get_average_rating();
+    $stock_label = $product->get_stock_status() == 'instock' ? 'In Stock' : '';
+
+
+
+    // var_dump($product);
+?>
+    <div class="right-content">
+        <h4>New Green Jacket</h4>
+        <span class="price">$75.00</span>
+        <ul class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+        </ul>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore.</span>
+        <div class="quote">
+            <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
+        </div>
+        <div class="quantity-content">
+            <div class="left-content">
+                <h6>No. of Orders</h6>
+            </div>
+            <div class="right-content">
+                <div class="quantity buttons_added">
+                    <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                </div>
+            </div>
+        </div>
+        <div class="total">
+            <h4>Total: $210.00</h4>
+            <div class="main-border-button"><a href="#">Add To Cart</a></div>
+        </div>
+    </div>
+<?php
+}
+
+add_action('woocommerce_single_product_summary','hexshop_product_details');
