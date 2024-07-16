@@ -38,21 +38,20 @@ $wrapper_classes   = apply_filters(
 ?>
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?> col-lg-8" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
 	<div class="woocommerce-product-gallery__wrapper left-images">
+
 		<?php
-		if ( $post_thumbnail_id ) {
-			$html = wc_get_gallery_image_html( $post_thumbnail_id, true );
-		} else {
-			$wrapper_classname = $product->is_type( 'variable' ) && ! empty( $product->get_available_variations( 'image' ) ) ?
-				'woocommerce-product-gallery__image woocommerce-product-gallery__image--placeholder' :
-				'woocommerce-product-gallery__image--placeholder';
-			$html              = sprintf( '<div class="%s">', esc_attr( $wrapper_classname ) );
-			$html             .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
-			$html             .= '</div>';
-		}
+			$post_thumbnail_id = $product->get_image_id();
 
-		echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+			if ( $post_thumbnail_id ) {
+				$image_src = wp_get_attachment_image_src( $post_thumbnail_id, 'full' );
+				$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true );
+				$image_html = sprintf( '<img src="%s" alt="%s" />', esc_url( $image_src[0] ), esc_attr( $image_alt ) );
+			} else {
+				$image_src = wc_placeholder_img_src( 'woocommerce_single' );
+				$image_html = sprintf( '<img src="%s" alt="%s" />', esc_url( $image_src ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
+			}
 
-		do_action( 'woocommerce_product_thumbnails' );
+			echo $image_html;
 		?>
 	</div>
 </div>
