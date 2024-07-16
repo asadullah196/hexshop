@@ -1680,7 +1680,8 @@ Products Page
   height: 50px;
   text-align: center;
   line-height: 50px;
-  display: inline-block;
+  display: inline;
+  padding: 20px;
   color: #2a2a2a;
   background-color: #fff;
 }
