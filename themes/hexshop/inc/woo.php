@@ -25,41 +25,6 @@ add_filter( 'woosw_button_position_single', '__return_false' );
 
 add_filter( 'woosq_button_position', '__return_false' );
 
-// Remove on sale from single product page
-add_filter('woocommerce_sale_flash', 'remove_sale_flash_single_product', 10, 2);
-
-function remove_sale_flash_single_product($html, $post) {
-    if (is_product() && $post->post_type === 'product') {
-        return ''; // Remove the sale badge on single product pages
-    }
-    return $html; // Keep the sale badge on archive pages
-}
-
-// Remove product meta from single product page
-add_action('woocommerce_single_product_summary', 'remove_product_meta_single_product', 0);
-
-function remove_product_meta_single_product() {
-    if (is_product()) {
-        remove_action('woocommerce_single_product_summary', 'woocommerce_product_meta_start', 40);
-        remove_action('woocommerce_single_product_summary', 'woocommerce_product_meta_end', 60);
-        // Remove SKU
-        remove_action('woocommerce_product_meta_start', 'woocommerce_template_single_meta', 10);
-        
-        // Remove categories
-        remove_action('woocommerce_product_meta_end', 'woocommerce_template_single_meta', 10);
-        
-        // Remove description
-        remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
-        
-        // Remove additional information
-        remove_action('woocommerce_product_tabs', 'woocommerce_product_additional_information_tab', 10);
-        
-        // Remove reviews
-        remove_action('woocommerce_product_tabs', 'woocommerce_product_reviews_tab', 10);
-    }
-}
-
-
 // product add to cart button
 function hexshop_wooc_add_to_cart( $args = array() ) {
     global $product;
