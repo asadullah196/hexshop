@@ -15,6 +15,9 @@ remove_action('woocommerce_after_shop_loop_item_title','woocommerce_template_loo
 remove_action('woocommerce_after_shop_loop_item','woocommerce_template_loop_product_link_close',5);
 remove_action('woocommerce_after_shop_loop_item','woocommerce_template_loop_add_to_cart',10);
 
+// remove sidebar from product archive page
+remove_action('woocommerce_sidebar','woocommerce_get_sidebar',10);
+
 // woo smart plugin position remove 
 add_filter( 'woosw_button_position_archive', '__return_false' );
 add_filter( 'woosw_button_position_single', '__return_false' );
