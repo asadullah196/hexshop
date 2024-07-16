@@ -1613,6 +1613,7 @@ Products Page
 
 #products .item .thumb img {
   width: 100%;
+  height: auto;
   overflow: hidden;
 }
 
