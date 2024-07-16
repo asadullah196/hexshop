@@ -33,14 +33,10 @@ function hexshop_product_grid(){
             <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
         </div>
         <div class="down-content">
-            <h4>Classic Spring</h4>
-            <span>$120.00</span>
+            <h4 class="archive__products__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+            <span><?php woocommerce_template_loop_price(); ?></span>
             <ul class="stars">
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
+                <?php woocommerce_template_loop_rating(); ?>
             </ul>
         </div>
     </div>

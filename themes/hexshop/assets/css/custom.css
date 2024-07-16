@@ -68,3 +68,75 @@
 .contact__content {
     padding-left: 15px;
 }
+
+.archive__products__title a {
+    color: #2a2a2a;
+}
+
+/* woo rating *
+.star-rating{
+	position: relative;
+	display: inline-block;
+}
+.star-rating span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	font-size: 0px;
+	display: flex;
+}
+.star-rating::before {
+	font-family: "Font Awesome 5 Free";
+	content: "\f005\f005\f005\f005\f005";
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: var(--tp-common-yellow-5);
+	font-size: 11px;
+}
+.star-rating span::before {
+	font-family: "Font Awesome 5 Free";
+	content: "\e033\e033\e033\e033\e033";
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: var(--tp-common-yellow-5);
+	font-weight: 900;
+	display: inline-block;
+	font-size: 11px;
+}
+*/
+
+/* woo rating */
+.star-rating {
+    position: relative;
+    display: inline-block;
+    font-size: 0; /* Ensure no extra space around stars */
+    width: auto;
+}
+
+.star-rating::before {
+    font-family: "FontAwesome";
+    content: "\f005 \f005 \f005 \f005 \f005"; /* Full star icon */
+    color: #d3d3d3; /* Light grey color for background stars */
+    font-size: 18px; /* Adjust size as needed */
+    letter-spacing: 3px;
+    display: block;
+}
+
+.star-rating span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	font-size: 0px;
+	display: flex;
+}
+
+.star-rating span::before {
+    font-family: "FontAwesome";
+    content: "\f005\f005 \f005 \f005 \f005"; /* Full star icon */
+    color: #ffcc00; /* Yellow color for filled stars */
+    font-size: 18px; /* Adjust size as needed */
+    letter-spacing: 3px;
+    display: block;
+}

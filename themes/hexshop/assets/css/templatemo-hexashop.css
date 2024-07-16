@@ -1635,7 +1635,7 @@ Products Page
   font-size: 18px;
   color: #a1a1a1;
   font-weight: 500;
-  display: block;
+  /* display: block; */
 }
 
 #products .item .down-content ul.stars {
