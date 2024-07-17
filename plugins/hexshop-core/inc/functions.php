@@ -29,7 +29,7 @@ return $posts_list;
 }
 
 // get cat slug and name 
-function harry_get_cat_data($categories = [],$delimeter = ' ',$term = 'slug'){
+function hexshop_get_cat_data($categories = [],$delimeter = ' ',$term = 'slug'){
 $slugs = [];
 foreach($categories as $cat){
     if ($term == 'slug'){
@@ -48,8 +48,8 @@ return implode($delimeter, $slugs);
 * @param  string $svg SVG markup to sanitize.
 * @return string 	  Sanitized markup.
 */
-function harry_core_kses( $harry_custom_tag = '' ) {
-$harry_allowed_html = [
+function hexshop_core_kses( $hexshop_custom_tag = '' ) {
+$hexshop_allowed_html = [
     'svg' => array(
         'class' => true,
         'aria-hidden' => true,
@@ -160,7 +160,7 @@ $harry_allowed_html = [
         'strong'                 => array(),
 ];
 
-return wp_kses( $harry_custom_tag, $harry_allowed_html );
+return wp_kses( $hexshop_custom_tag, $hexshop_allowed_html );
 }
 
 
@@ -180,3 +180,4 @@ function product_cat($category = 'product_cat') {
     
     return $cat_list;
 }
+
