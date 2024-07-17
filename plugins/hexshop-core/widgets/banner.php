@@ -109,7 +109,7 @@ class Hexshop_Banner extends Widget_Base {
 		$this->start_controls_section(
 			'contact_content',
 			[
-				'label' => __( 'Content', 'hexshop-main' ),
+				'label' => __( 'Left Content', 'hexshop-main' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -201,6 +201,27 @@ class Hexshop_Banner extends Widget_Base {
 				'condition' => [
 					'display_cta' => 'yes',
 				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'category_content',
+			[
+				'label' => __( 'Right Content', 'hexshop-main' ),
+				'tab' => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'product_category_list',
+			[
+				'label' => esc_html__( 'Category', 'hexshop-core' ),
+				'type' => \Elementor\Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple' => true,
+				'options' => product_cat(),
 			]
 		);
 
@@ -470,6 +491,42 @@ class Hexshop_Banner extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+
+		// echo do_shortcode('[product_categories]');
+		// echo do_shortcode('[product_categories category=”decor”]');
+		// echo do_shortcode('[product_categories number="0" parent="0"]');
+		// echo do_shortcode('[product_categories]');
+		// echo do_shortcode('[product_categories number="4"]');
+
+		// Define the specific categories you want to display
+		$desired_categories = ['clothing', 'decor'];
+
+		// Get all product categories
+		$categories = get_terms(array(
+			'taxonomy'   => 'product_cat',
+			'hide_empty' => true,
+		));
+
+		// Filter categories to include only the desired ones
+		$filtered_categories = array_filter($categories, function($cat) use ($desired_categories) {
+			return in_array($cat->slug, $desired_categories);
+		});
+
+		// Display the filtered categories
+		if ($filtered_categories) {
+			foreach ($filtered_categories as $category) {
+
+			// var_dump($category);
+
+				echo '<div class="product-category">';
+				echo '<h2>' . esc_html($category->name) . '</h2>';
+				echo '<a href="' . esc_url(get_term_link($category)) . '">' . esc_html($category->description) . '</a>';
+				echo '</div>';
+			}
+		} else {
+			echo 'No categories found.';
+		}
+
 		?>
 
     <!-- ***** Main Banner Area Start ***** -->
@@ -502,20 +559,7 @@ class Hexshop_Banner extends Widget_Base {
                             <div class="col-lg-6">
                                 <div class="right-first-image">
                                     <div class="thumb">
-                                        <div class="inner-content">
-                                            <h4>Women</h4>
-                                            <span>Best Clothes For Women</span>
-                                        </div>
-                                        <div class="hover-content">
-                                            <div class="inner">
-                                                <h4>Women</h4>
-                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
-                                                <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-01.jpg">
+                                        <h2>Test Here</h2>
                                     </div>
                                 </div>
                             </div>

@@ -162,3 +162,21 @@ $harry_allowed_html = [
 
 return wp_kses( $harry_custom_tag, $harry_allowed_html );
 }
+
+
+// get all product category 
+function product_cat($category = 'product_cat') {
+    $categories = get_terms(array(
+        'taxonomy'   => $category,
+        'orderby'    => 'name',
+        'order'      => 'ASC',
+        'hide_empty' => false, // Set to true to only get categories with products
+    ));
+
+    $cat_list = [];
+    foreach ($categories as $cat) {
+        $cat_list[$cat->slug] = $cat->name;
+    }
+    
+    return $cat_list;
+}
