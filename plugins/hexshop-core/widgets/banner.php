@@ -149,7 +149,50 @@ class Hexshop_Banner extends Widget_Base {
 				],
 			]
 		);
-		
+
+		$this->add_control(
+			'display_cta',
+			[
+				'label' => esc_html__( 'Show CTA', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Show', 'hexshop-main' ),
+				'label_off' => esc_html__( 'Hide', 'hexshop-main' ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'cta_text',
+			[
+				'label' => esc_html__( 'CTA Text', 'hexshop-main' ),
+				'label_block' => true,
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( 'Purchase Now', 'hexshop-main' ),
+				'condition' => [
+					'display_cta' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'cta_url',
+			[
+				'label' => esc_html__( 'CTA URL', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::URL,
+				'options' => [ 'url', 'is_external', 'nofollow' ],
+				'default' => [
+					'url' => '#',
+					'is_external' => true,
+					'nofollow' => true,
+				],
+				'label_block' => true,
+				'condition' => [
+					'display_cta' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 	
 	}
@@ -348,27 +391,114 @@ class Hexshop_Banner extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		?>
 
-		<div class="contact-area">
-			<div class="section-heading heading_alignment">
-				<h2 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h2>
-				<?php if ('yes' === $settings['display_description']) : ?>
-				<span class="hexshop_sub_title">
-					<?php
-						// Check if Elementor is in edit mode
-						$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
-
-						if ( $is_edit_mode ) {
-							// Output the content with tags in the backend (editor)
-							echo wp_kses_post( $settings['description'] );
-						} else {
-							// Output the content without tags in the frontend
-							echo esc_html__( wp_strip_all_tags( $settings['description'], 'sadaka-core' ) );
-						}
-					?>
-				</span>
-				<?php endif; ?>
-			</div>
-		</div>
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner" id="top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-content">
+                        <div class="thumb">
+                            <div class="inner-content">
+                                <h4>We Are Hexashop</h4>
+                                <span>Awesome, clean &amp; creative HTML5 Template</span>
+                                <div class="main-border-button">
+                                    <a href="#">Purchase Now!</a>
+                                </div>
+                            </div>
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/left-banner-image.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                    <div class="thumb">
+                                        <div class="inner-content">
+                                            <h4>Women</h4>
+                                            <span>Best Clothes For Women</span>
+                                        </div>
+                                        <div class="hover-content">
+                                            <div class="inner">
+                                                <h4>Women</h4>
+                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                                <div class="main-border-button">
+                                                    <a href="#">Discover More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-01.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                    <div class="thumb">
+                                        <div class="inner-content">
+                                            <h4>Men</h4>
+                                            <span>Best Clothes For Men</span>
+                                        </div>
+                                        <div class="hover-content">
+                                            <div class="inner">
+                                                <h4>Men</h4>
+                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                                <div class="main-border-button">
+                                                    <a href="#">Discover More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-02.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                    <div class="thumb">
+                                        <div class="inner-content">
+                                            <h4>Kids</h4>
+                                            <span>Best Clothes For Kids</span>
+                                        </div>
+                                        <div class="hover-content">
+                                            <div class="inner">
+                                                <h4>Kids</h4>
+                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                                <div class="main-border-button">
+                                                    <a href="#">Discover More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-03.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                    <div class="thumb">
+                                        <div class="inner-content">
+                                            <h4>Accessories</h4>
+                                            <span>Best Trend Accessories</span>
+                                        </div>
+                                        <div class="hover-content">
+                                            <div class="inner">
+                                                <h4>Accessories</h4>
+                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                                <div class="main-border-button">
+                                                    <a href="#">Discover More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-04.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
 
 		<?php
 	}
