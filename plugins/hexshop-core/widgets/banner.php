@@ -499,32 +499,32 @@ class Hexshop_Banner extends Widget_Base {
 		// echo do_shortcode('[product_categories number="4"]');
 
 		// Define the specific categories you want to display
-		$desired_categories = ['clothing', 'decor'];
+		// $desired_categories = ['clothing', 'decor'];
+		$category_names = ['clothing', 'decor', 'music']; // Replace with your category names
 
-		// Get all product categories
-		$categories = get_terms(array(
-			'taxonomy'   => 'product_cat',
-			'hide_empty' => true,
-		));
+		foreach ($category_names as $category_name) {
+			// Get the category object by name
+			$category = get_term_by('name', $category_name, 'product_cat');
 
-		// Filter categories to include only the desired ones
-		$filtered_categories = array_filter($categories, function($cat) use ($desired_categories) {
-			return in_array($cat->slug, $desired_categories);
-		});
+			if ($category) {
+				// Get the category description
+				$category_description = term_description($category->term_id, 'product_cat');
 
-		// Display the filtered categories
-		if ($filtered_categories) {
-			foreach ($filtered_categories as $category) {
+				// Get the category URL
+				$category_url = get_term_link($category->term_id, 'product_cat');
+				?>
 
-			// var_dump($category);
+				<!-- Display the category description and URL -->
+				<div class="category-info">
+					<h2><?php echo esc_html($category->name); ?></h2>
+					<p><?php echo $category_description; ?></p>
+					<a href="<?php echo esc_url($category_url); ?>">Visit Category</a>
+				</div>
 
-				echo '<div class="product-category">';
-				echo '<h2>' . esc_html($category->name) . '</h2>';
-				echo '<a href="' . esc_url(get_term_link($category)) . '">' . esc_html($category->description) . '</a>';
-				echo '</div>';
+				<?php
+			} else {
+				echo 'Category not found: ' . esc_html($category_name);
 			}
-		} else {
-			echo 'No categories found.';
 		}
 
 		?>
