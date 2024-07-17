@@ -387,6 +387,76 @@ class Hexshop_Banner extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'cta_style',
+			[
+				'label' => esc_html__( 'CTA', 'hexshop-main' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'cta_margin',
+			[
+				'label' => esc_html__( 'Margin', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_cta' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'cta_padding',
+			[
+				'label' => esc_html__( 'Padding', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'default' => [
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => '',
+					'unit' => 'px',
+					'isLinked' => false,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'cta_typography',
+				'selector' => '{{WRAPPER}} .hexshop_cta',
+			]
+		);
+
+		$this->add_control(
+			'cta_color',
+			[
+				'label' => esc_html__( 'Color', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .hexshop_cta' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -409,13 +479,13 @@ class Hexshop_Banner extends Widget_Base {
                 <div class="col-lg-6">
                     <div class="left-content">
                         <div class="thumb">
-                            <div class="inner-content">
-                                <h4><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h4>
+                            <div class="inner-content heading_alignment">
+                                <h4 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h4>
 								<?php if ('yes' === $settings['display_description']) : ?>
-                                <span><?php echo esc_html__($settings['description'], 'hexshop-core'); ?></span>
+                                <span class="hexshop_sub_title"><?php echo esc_html__($settings['description'], 'hexshop-core'); ?></span>
 								<?php endif; ?>
                                 <?php if ('yes' === $settings['display_cta']) : ?>
-								<div class="main-border-button">
+								<div class="main-border-button hexshop_cta">
                                     <a href="<?php echo esc_url($settings['cta_text']); ?>"><?php echo esc_html__($settings['cta_text'], 'hexshop-core'); ?></a>
                                 </div>
 								<?php endif; ?>
@@ -449,66 +519,7 @@ class Hexshop_Banner extends Widget_Base {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="right-first-image">
-                                    <div class="thumb">
-                                        <div class="inner-content">
-                                            <h4>Men</h4>
-                                            <span>Best Clothes For Men</span>
-                                        </div>
-                                        <div class="hover-content">
-                                            <div class="inner">
-                                                <h4>Men</h4>
-                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
-                                                <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-02.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="right-first-image">
-                                    <div class="thumb">
-                                        <div class="inner-content">
-                                            <h4>Kids</h4>
-                                            <span>Best Clothes For Kids</span>
-                                        </div>
-                                        <div class="hover-content">
-                                            <div class="inner">
-                                                <h4>Kids</h4>
-                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
-                                                <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-03.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="right-first-image">
-                                    <div class="thumb">
-                                        <div class="inner-content">
-                                            <h4>Accessories</h4>
-                                            <span>Best Trend Accessories</span>
-                                        </div>
-                                        <div class="hover-content">
-                                            <div class="inner">
-                                                <h4>Accessories</h4>
-                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
-                                                <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-04.jpg">
-                                    </div>
-                                </div>
-                            </div>
+							
                         </div>
                     </div>
                 </div>
