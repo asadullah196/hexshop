@@ -115,6 +115,17 @@ class Hexshop_Banner extends Widget_Base {
 		);
 
 		$this->add_control(
+			'background',
+			[
+				'label' => esc_html__( 'Choose Image', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+			]
+		);
+
+		$this->add_control(
 			'heading',
 			[
 				'label' => esc_html__( 'Title', 'hexshop-main' ),
@@ -399,13 +410,19 @@ class Hexshop_Banner extends Widget_Base {
                     <div class="left-content">
                         <div class="thumb">
                             <div class="inner-content">
-                                <h4>We Are Hexashop</h4>
-                                <span>Awesome, clean &amp; creative HTML5 Template</span>
-                                <div class="main-border-button">
-                                    <a href="#">Purchase Now!</a>
+                                <h4><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h4>
+								<?php if ('yes' === $settings['display_description']) : ?>
+                                <span><?php echo esc_html__($settings['description'], 'hexshop-core'); ?></span>
+								<?php endif; ?>
+                                <?php if ('yes' === $settings['display_cta']) : ?>
+								<div class="main-border-button">
+                                    <a href="<?php echo esc_url($settings['cta_text']); ?>"><?php echo esc_html__($settings['cta_text'], 'hexshop-core'); ?></a>
                                 </div>
+								<?php endif; ?>
                             </div>
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/left-banner-image.jpg" alt="">
+							<?php if(!empty($settings['background']['url'])) : ?>
+								<img src="<?php echo esc_url($settings['background']['url']); ?>" alt="">
+							<?php endif; ?>
                         </div>
                     </div>
                 </div>
