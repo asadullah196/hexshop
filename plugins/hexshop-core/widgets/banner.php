@@ -500,7 +500,27 @@ class Hexshop_Banner extends Widget_Base {
 
 		// Define the specific categories you want to display
 		// $desired_categories = ['clothing', 'decor'];
-		$category_names = ['clothing', 'decor', 'music']; // Replace with your category names
+
+		$category_ids = $settings['product_category_list'];
+
+		//var_dump($category_ids['name']);
+
+        $category_names = $category_ids;
+
+        if ( ! empty( $category_ids ) ) {
+            foreach ( $category_ids as $category_id ) {
+                $category = get_term( $category_id, 'product_cat' );
+                if ( ! is_wp_error( $category ) && $category ) {
+                    $category_names[] = $category->name;
+
+					//var_dump($category_names[]);
+                }
+				// var_dump($category_names);
+            }
+			//var_dump($category_names[]);
+        }
+
+		// $category_names = ['clothing', 'decor', 'music']; // Replace with your category names
 
 		foreach ($category_names as $category_name) {
 			// Get the category object by name
