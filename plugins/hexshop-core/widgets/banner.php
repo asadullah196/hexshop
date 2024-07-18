@@ -492,35 +492,8 @@ class Hexshop_Banner extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		// echo do_shortcode('[product_categories]');
-		// echo do_shortcode('[product_categories category=”decor”]');
-		// echo do_shortcode('[product_categories number="0" parent="0"]');
-		// echo do_shortcode('[product_categories]');
-		// echo do_shortcode('[product_categories number="4"]');
-
-		// Define the specific categories you want to display
-		// $desired_categories = ['clothing', 'decor'];
-
-		$category_ids = $settings['product_category_list'];
-
-		//var_dump($category_ids['name']);
-
-        $category_names = $category_ids;
-
-        if ( ! empty( $category_ids ) ) {
-            foreach ( $category_ids as $category_id ) {
-                $category = get_term( $category_id, 'product_cat' );
-                if ( ! is_wp_error( $category ) && $category ) {
-                    $category_names[] = $category->name;
-
-					//var_dump($category_names[]);
-                }
-				// var_dump($category_names);
-            }
-			//var_dump($category_names[]);
-        }
-
-		// $category_names = ['clothing', 'decor', 'music']; // Replace with your category names
+		// Access user given category
+		$category_names = $settings['product_category_list'];
 
 		foreach ($category_names as $category_name) {
 			// Get the category object by name
@@ -532,25 +505,19 @@ class Hexshop_Banner extends Widget_Base {
 
 				// Get the category URL
 				$category_url = get_term_link($category->term_id, 'product_cat');
-
-
 				$category_img_url = get_field('category_image', 'category_' . $category->term_id);
-
-				//var_dump($category_img_url);
 
 				?>
 
-				<!-- Display the category description and URL -->
+				<!-- Display the category description and URL 
 				<div class="category-info">
 					<h2><?php echo esc_html($category->name); ?></h2>
 					<p><?php echo $category_description; ?></p>
 					<a href="<?php echo esc_url($category_url); ?>">Visit Category</a>
 					<img src="<?php echo esc_url($category_img_url); ?>" alt="">
-				</div>
+				</div> -->
 
 				<?php
-			} else {
-				echo 'Category not found: ' . esc_html($category_name);
 			}
 		}
 
@@ -583,14 +550,49 @@ class Hexshop_Banner extends Widget_Base {
                 <div class="col-lg-6">
                     <div class="right-content">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="right-first-image">
-                                    <div class="thumb">
-                                        <h2>Test Here</h2>
-                                    </div>
-                                </div>
-                            </div>
-							
+                            
+							<?php foreach ($category_names as $category_name) :
+
+								$category = get_term_by('name', $category_name, 'product_cat');
+								if ($category) {
+
+									// Get the category name
+									$category_name = $category->name;
+									// Get the category description
+									$category_description = term_description($category->term_id, 'product_cat');
+
+									// Get the category URL
+									$category_url = get_term_link($category->term_id, 'product_cat');
+									$category_img_url = get_field('category_image', 'category_' . $category->term_id);
+
+								}
+							?>
+
+
+							<div class="col-lg-6">
+								<div class="right-first-image">
+									<div class="thumb">
+										<div class="inner-content">
+											<h4><?php echo esc_html($category_name); ?></h4>
+											<span>Best Clothes For Women</span>
+										</div>
+										<div class="hover-content">
+											<div class="inner">
+												<h4>Women</h4>
+												<p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+												<div class="main-border-button">
+													<a href="#">Discover More</a>
+												</div>
+											</div>
+										</div>
+										<img src="<?php echo get_template_directory_uri(); ?>/assets/images/baner-right-image-01.jpg">
+									</div>
+								</div>
+							</div>
+
+
+
+							<?php endforeach; ?>
                         </div>
                     </div>
                 </div>
