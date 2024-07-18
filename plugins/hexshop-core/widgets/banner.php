@@ -225,6 +225,31 @@ class Hexshop_Banner extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'display_cta2',
+			[
+				'label' => esc_html__( 'Show CTA', 'hexshop-main' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Show', 'hexshop-main' ),
+				'label_off' => esc_html__( 'Hide', 'hexshop-main' ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'cta_text2',
+			[
+				'label' => esc_html__( 'CTA Text', 'hexshop-main' ),
+				'label_block' => true,
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( 'Purchase Now', 'hexshop-main' ),
+				'condition' => [
+					'display_cta2' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 	
 	}
@@ -546,7 +571,6 @@ class Hexshop_Banner extends Widget_Base {
 								}
 							?>
 
-
 							<div class="col-lg-6">
 								<div class="right-first-image">
 									<div class="thumb">
@@ -554,22 +578,30 @@ class Hexshop_Banner extends Widget_Base {
 											<h4><?php echo esc_html($category_name); ?></h4>
 											<span><?php echo esc_html($category_description); ?></span>
 										</div>
+										<?php if ('yes' == $settings['display_cta2']) : ?>
 										<div class="hover-content">
 											<div class="inner">
 												<h4><?php echo esc_html($category_name); ?></h4>
 												<p><?php echo esc_html($category_description); ?></p>
 												<div class="main-border-button">
-													<a href="<?php echo esc_url($category_url); ?>">Discover More</a>
+													<a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html__($settings['cta_text2']); ?></a>
 												</div>
 											</div>
 										</div>
+										<?php elseif ('' == $settings['display_cta2']) : ?>
+										<div class="hover-content">
+											<div class="inner">
+												<a href="<?php echo esc_url($category_url); ?>">
+													<h4><?php echo esc_html($category_name); ?></h4>
+													<p><?php echo esc_html($category_description); ?></p>
+												</a>
+											</div>
+										</div>
+										<?php endif; ?>
 										<img src="<?php echo esc_url($category_img_url); ?>">
 									</div>
 								</div>
 							</div>
-
-
-
 							<?php endforeach; ?>
                         </div>
                     </div>
@@ -579,6 +611,6 @@ class Hexshop_Banner extends Widget_Base {
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
-		<?php
+	<?php
 	}
 }
