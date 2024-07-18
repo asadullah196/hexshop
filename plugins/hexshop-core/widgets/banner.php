@@ -558,11 +558,14 @@ class Hexshop_Banner extends Widget_Base {
 
 									// Get the category name
 									$category_name = $category->name;
+									
 									// Get the category description
 									$category_description = term_description($category->term_id, 'product_cat');
 
 									// Get the category URL
 									$category_url = get_term_link($category->term_id, 'product_cat');
+
+									// Get the category image
 									$category_img_url = get_field('category_image', 'category_' . $category->term_id);
 
 								}
@@ -578,7 +581,7 @@ class Hexshop_Banner extends Widget_Base {
 										</div>
 										<div class="hover-content">
 											<div class="inner">
-												<h4>Women</h4>
+												<h4><?php echo esc_html($category_name); ?></h4>
 												<p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
 												<div class="main-border-button">
 													<a href="#">Discover More</a>
