@@ -575,15 +575,15 @@ class Hexshop_Banner extends Widget_Base {
 								<div class="right-first-image">
 									<div class="thumb">
 										<div class="inner-content">
-											<h4><?php echo esc_html($category_name); ?></h4>
-											<span><?php echo esc_html($category_description); ?></span>
+											<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
+											<span class="hexshop_sub_title"><?php echo esc_html($category_description); ?></span>
 										</div>
 										<?php if ('yes' == $settings['display_cta2']) : ?>
 										<div class="hover-content">
 											<div class="inner">
-												<h4><?php echo esc_html($category_name); ?></h4>
-												<p><?php echo esc_html($category_description); ?></p>
-												<div class="main-border-button">
+												<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
+												<p class="hexshop_sub_title"><?php echo esc_html($category_description); ?></p>
+												<div class="main-border-button hexshop_cta">
 													<a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html__($settings['cta_text2']); ?></a>
 												</div>
 											</div>
@@ -592,7 +592,7 @@ class Hexshop_Banner extends Widget_Base {
 										<div class="hover-content">
 											<div class="inner">
 												<a href="<?php echo esc_url($category_url); ?>">
-													<h4><?php echo esc_html($category_name); ?></h4>
+													<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
 													<p><?php echo esc_html($category_description); ?></p>
 												</a>
 											</div>
