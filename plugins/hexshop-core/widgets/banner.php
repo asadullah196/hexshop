@@ -495,32 +495,6 @@ class Hexshop_Banner extends Widget_Base {
 		// Access user given category
 		$category_names = $settings['product_category_list'];
 
-		foreach ($category_names as $category_name) {
-			// Get the category object by name
-			$category = get_term_by('name', $category_name, 'product_cat');
-
-			if ($category) {
-				// Get the category description
-				$category_description = term_description($category->term_id, 'product_cat');
-
-				// Get the category URL
-				$category_url = get_term_link($category->term_id, 'product_cat');
-				$category_img_url = get_field('category_image', 'category_' . $category->term_id);
-
-				?>
-
-				<!-- Display the category description and URL 
-				<div class="category-info">
-					<h2><?php echo esc_html($category->name); ?></h2>
-					<p><?php echo $category_description; ?></p>
-					<a href="<?php echo esc_url($category_url); ?>">Visit Category</a>
-					<img src="<?php echo esc_url($category_img_url); ?>" alt="">
-				</div> -->
-
-				<?php
-			}
-		}
-
 		?>
 
     <!-- ***** Main Banner Area Start ***** -->
