@@ -574,7 +574,7 @@ class Hexshop_Banner extends Widget_Base {
 							<div class="col-lg-6">
 								<div class="right-first-image">
 									<div class="thumb">
-										<div class="inner-content">
+										<div class="inner-content heading_alignment">
 											<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
 											<span class="hexshop_sub_title"><?php echo esc_html($category_description); ?></span>
 										</div>
