@@ -145,6 +145,10 @@ body {
   }
 }
 
+.color-white {
+  color: #fff;
+}
+
 .main-border-button a {
   font-size: 13px;
   color: #fff;

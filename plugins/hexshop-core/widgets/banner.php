@@ -266,9 +266,9 @@ class Hexshop_Banner extends Widget_Base {
 		);
 
 		$this->add_control(
-			'heading_align',
+			'heading_align_left',
 			[
-				'label' => esc_html__( 'Alignment', 'textdomain' ),
+				'label' => esc_html__( 'Left Alignment', 'textdomain' ),
 				'type' => \Elementor\Controls_Manager::CHOOSE,
 				'options' => [
 					'left' => [
@@ -288,6 +288,33 @@ class Hexshop_Banner extends Widget_Base {
 				'toggle' => true,
 				'selectors' => [
 					'{{WRAPPER}} .heading_alignment' => 'text-align: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'heading_align_right',
+			[
+				'label' => esc_html__( 'Right Alignment', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'textdomain' ),
+						'icon' => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'textdomain' ),
+						'icon' => 'eicon-text-align-center',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'textdomain' ),
+						'icon' => 'eicon-text-align-right',
+					],
+				],
+				'default' => 'center',
+				'toggle' => true,
+				'selectors' => [
+					'{{WRAPPER}} .heading_alignment_right' => 'text-align: {{VALUE}};',
 				],
 			]
 		);
@@ -532,7 +559,20 @@ class Hexshop_Banner extends Widget_Base {
                             <div class="inner-content heading_alignment">
                                 <h4 class="hexshop_title"><?php echo esc_html__($settings['heading'], 'hexshop-core'); ?></h4>
 								<?php if ('yes' === $settings['display_description']) : ?>
-                                <span class="hexshop_sub_title"><?php echo esc_html__($settings['description'], 'hexshop-core'); ?></span>
+                                <span class="hexshop_sub_title color-white">
+									<?php
+										// Check if Elementor is in edit mode
+										$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+
+										if ( $is_edit_mode ) {
+											// Output the content with tags in the backend (editor)
+											echo wp_kses_post( $settings['description'] );
+										} else {
+											// Output the content without tags in the frontend
+											echo esc_html__( wp_strip_all_tags( $settings['description'], 'sadaka-core' ) );
+										}
+									?>
+								</span>
 								<?php endif; ?>
                                 <?php if ('yes' === $settings['display_cta']) : ?>
 								<div class="main-border-button hexshop_cta">
@@ -574,13 +614,13 @@ class Hexshop_Banner extends Widget_Base {
 							<div class="col-lg-6">
 								<div class="right-first-image">
 									<div class="thumb">
-										<div class="inner-content heading_alignment">
+										<div class="inner-content heading_alignment_right">
 											<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
 											<span class="hexshop_sub_title"><?php echo esc_html($category_description); ?></span>
 										</div>
 										<?php if ('yes' == $settings['display_cta2']) : ?>
 										<div class="hover-content">
-											<div class="inner heading_alignment">
+											<div class="inner heading_alignment_right">
 												<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
 												<p class="hexshop_sub_title"><?php echo esc_html($category_description); ?></p>
 												<div class="main-border-button hexshop_cta">
