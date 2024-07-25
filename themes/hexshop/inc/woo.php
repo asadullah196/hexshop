@@ -164,19 +164,14 @@ function hexshop_product_details(){
     ?>
     <div class="right-content">
         <h4><?php echo esc_html($product_name); ?></h4>
-        <span class="price"><?php echo wp_kses_post($product_price); ?></span>
-        <ul class="stars">
-            <?php
-            // Display star ratings based on the average rating
-            for ($i = 1; $i <= 5; $i++) {
-                if ($i <= $average_rating) {
-                    echo '<li><i class="fa fa-star"></i></li>';
-                } else {
-                    echo '<li><i class="fa fa-star-o"></i></li>';
-                }
-            }
-            ?>
-        </ul>
+        
+        <div class="price-star">
+            <span class="price"><?php echo wp_kses_post($product_price); ?></span>
+            <ul class="stars stars-single">
+                <?php woocommerce_template_loop_rating(); ?>
+            </ul>
+        </div>
+        
         <span><?php echo wp_kses_post($product_description); ?></span>
         <div class="quote">
             <i class="fa fa-quote-left"></i><p><?php echo wp_kses_post($product_description); ?></p>
@@ -186,18 +181,55 @@ function hexshop_product_details(){
                 <h6>No. of Orders</h6>
             </div>
             <div class="right-content">
-                <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus">
-                    <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
-                    <input type="button" value="+" class="plus">
-                </div>
+                <form class="cart" action="<?php echo esc_url( $product->add_to_cart_url() ); ?>" method="post" enctype='multipart/form-data'>
+                    <div class="quantity buttons_added quantity-content-border">
+                        <input type="button" value="-" class="minus">
+                        <?php
+                        // Quantity input field
+                        woocommerce_quantity_input(array(
+                            'min_value'   => apply_filters('woocommerce_quantity_input_min', 1, $product),
+                            'max_value'   => apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product),
+                            'input_value' => isset($_POST['quantity']) ? wc_stock_amount($_POST['quantity']) : 1,
+                        ));
+                        ?>
+                        <input type="button" value="+" class="plus">
+                    </div>
+                    <div class="total">
+                        <h4>Total: <?php echo wp_kses_post($product_price); ?></h4>
+                        <button type="submit" class="single_add_to_cart_button button alt main-border-button"><?php esc_html_e('Add To Cart', 'woocommerce'); ?></button>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="total">
-            <h4>Total: <?php echo wp_kses_post($product_price); ?></h4>
-            <div class="main-border-button"><a href="<?php echo esc_url($product->add_to_cart_url()); ?>">Add To Cart</a></div>
-        </div>
     </div>
+    <script>
+        jQuery(document).ready(function($) {
+            $('form.cart .quantity.buttons_added').on('click', '.plus, .minus', function() {
+                // Get the current quantity values
+                var qty = $(this).closest('.quantity').find('.qty'),
+                    val = parseFloat(qty.val()),
+                    max = parseFloat(qty.attr('max')),
+                    min = parseFloat(qty.attr('min')),
+                    step = parseFloat(qty.attr('step'));
+
+                // Change the value
+                if ($(this).is('.plus')) {
+                    if (max && (max <= val)) {
+                        qty.val(max);
+                    } else {
+                        qty.val(val + step);
+                    }
+                } else {
+                    if (min && (min >= val)) {
+                        qty.val(min);
+                    } else if (val > 1) {
+                        qty.val(val - step);
+                    }
+                }
+                qty.trigger('change');
+            });
+        });
+    </script>
     <?php
 }
 
