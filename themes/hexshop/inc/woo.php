@@ -149,29 +149,37 @@ function hexshop_product_details(){
     global $product;
     global $woocommerce;
 
+    // Get the product details
+    $product_name = $product->get_name();
+    $product_price = $product->get_price_html();
+    $product_description = $product->get_short_description();
+    $average_rating = $product->get_average_rating();
 
-    $rating_count = $product->get_rating_count();
-    $review_count = $product->get_review_count();
-    $average      = $product->get_average_rating();
-    $stock_label = $product->get_stock_status() == 'instock' ? 'In Stock' : '';
+    // Get the product image
+    $product_image_url = wp_get_attachment_url($product->get_image_id());
 
+    // Get the product categories
+    $categories = wc_get_product_category_list($product->get_id());
 
-
-    // var_dump($product);
-?>
+    ?>
     <div class="right-content">
-        <h4>New Green Jacket</h4>
-        <span class="price">$75.00</span>
+        <h4><?php echo esc_html($product_name); ?></h4>
+        <span class="price"><?php echo wp_kses_post($product_price); ?></span>
         <ul class="stars">
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
+            <?php
+            // Display star ratings based on the average rating
+            for ($i = 1; $i <= 5; $i++) {
+                if ($i <= $average_rating) {
+                    echo '<li><i class="fa fa-star"></i></li>';
+                } else {
+                    echo '<li><i class="fa fa-star-o"></i></li>';
+                }
+            }
+            ?>
         </ul>
-        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore.</span>
+        <span><?php echo wp_kses_post($product_description); ?></span>
         <div class="quote">
-            <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
+            <i class="fa fa-quote-left"></i><p><?php echo wp_kses_post($product_description); ?></p>
         </div>
         <div class="quantity-content">
             <div class="left-content">
@@ -179,16 +187,18 @@ function hexshop_product_details(){
             </div>
             <div class="right-content">
                 <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                    <input type="button" value="-" class="minus">
+                    <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
+                    <input type="button" value="+" class="plus">
                 </div>
             </div>
         </div>
         <div class="total">
-            <h4>Total: $210.00</h4>
-            <div class="main-border-button"><a href="#">Add To Cart</a></div>
+            <h4>Total: <?php echo wp_kses_post($product_price); ?></h4>
+            <div class="main-border-button"><a href="<?php echo esc_url($product->add_to_cart_url()); ?>">Add To Cart</a></div>
         </div>
     </div>
-<?php
+    <?php
 }
 
 add_action('woocommerce_single_product_summary','hexshop_product_details');
