@@ -151,8 +151,14 @@ function hexshop_product_details(){
 
     // Get the product details
     $product_name = $product->get_name();
-    $product_price = $product->get_price_html();
-    $product_description = $product->get_short_description();
+    $product_price = $product->get_price();
+    $product_price_html = $product->get_price_html();
+
+    // $product_description = $product->get_short_description();
+
+    $product_short_description = $product->get_short_description();
+    $product_long_description = $product->get_description();
+
     $average_rating = $product->get_average_rating();
 
     // Get the product image
@@ -166,15 +172,16 @@ function hexshop_product_details(){
         <h4><?php echo esc_html($product_name); ?></h4>
         
         <div class="price-star">
-            <span class="price"><?php echo wp_kses_post($product_price); ?></span>
+            <span class="price"><?php echo wp_kses_post($product_price_html); ?></span>
             <ul class="stars stars-single">
                 <?php woocommerce_template_loop_rating(); ?>
             </ul>
         </div>
-        
-        <span><?php echo wp_kses_post($product_description); ?></span>
+        <br/>
+        <span><?php echo wp_kses_post($product_long_description); ?></span>
+        <br/><br/>
         <div class="quote">
-            <i class="fa fa-quote-left"></i><p><?php echo wp_kses_post($product_description); ?></p>
+            <i class="fa fa-quote-left"></i><p><?php echo wp_kses_post($product_short_description); ?></p>
         </div>
         <div class="quantity-content">
             <div class="left-content">
@@ -194,8 +201,9 @@ function hexshop_product_details(){
                         ?>
                         <input type="button" value="+" class="plus">
                     </div>
+                    <input type="hidden" id="unit_price" value="<?php echo esc_attr($product_price); ?>" />
                     <div class="total">
-                        <h4>Total: <?php echo wp_kses_post($product_price); ?></h4>
+                        <h4>Total: <span id="total_price"><?php echo wc_price($product_price); ?></span></h4>
                         <button type="submit" class="single_add_to_cart_button button alt main-border-button"><?php esc_html_e('Add To Cart', 'woocommerce'); ?></button>
                     </div>
                 </form>
@@ -228,6 +236,17 @@ function hexshop_product_details(){
                 }
                 qty.trigger('change');
             });
+
+            $('form.cart .quantity.buttons_added').on('change', '.qty', function() {
+                var qty = $(this).val();
+                var unitPrice = parseFloat($('#unit_price').val());
+                var totalPrice = unitPrice * qty;
+                $('#total_price').text(wc_price(totalPrice));
+            });
+
+            function wc_price(price) {
+                return '£' + price.toFixed(2);
+            }
         });
     </script>
     <?php
