@@ -580,7 +580,7 @@ class Hexshop_Banner extends Widget_Base {
 										</div>
 										<?php if ('yes' == $settings['display_cta2']) : ?>
 										<div class="hover-content">
-											<div class="inner">
+											<div class="inner heading_alignment">
 												<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
 												<p class="hexshop_sub_title"><?php echo esc_html($category_description); ?></p>
 												<div class="main-border-button hexshop_cta">
@@ -590,7 +590,7 @@ class Hexshop_Banner extends Widget_Base {
 										</div>
 										<?php elseif ('' == $settings['display_cta2']) : ?>
 										<div class="hover-content">
-											<div class="inner">
+											<div class="inner heading_alignment">
 												<a href="<?php echo esc_url($category_url); ?>">
 													<h4 class="hexshop_title"><?php echo esc_html($category_name); ?></h4>
 													<p><?php echo esc_html($category_description); ?></p>
