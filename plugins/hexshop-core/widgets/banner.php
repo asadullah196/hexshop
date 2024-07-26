@@ -593,6 +593,7 @@ class Hexshop_Banner extends Widget_Base {
 							<?php foreach ($category_names as $category_name) :
 
 								$category = get_term_by('name', $category_name, 'product_cat');
+								
 								if ($category) {
 
 									// Get the category name

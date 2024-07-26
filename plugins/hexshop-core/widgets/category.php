@@ -3,6 +3,7 @@ namespace ElementorHelloWorld\Widgets;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use WooCommerce\Product\Query\WC_Product_Query;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -351,6 +352,41 @@ class Hexshop_Category extends Widget_Base {
 		global $product;
 		global $woocommerce;
 
+		$args = array(
+			'post_type' => 'product',
+			'post_status' => 'publish',
+			'ignore_sticky_posts' => 1,
+			'posts_per_page' => 12,
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'product_cat',
+					'field' => 'slug', // Use slug for flexibility
+					'terms' => 'Fashion', // Replace 'xyz' with your desired category slug
+					'operator' => 'IN'
+				),
+				array(
+					'taxonomy' => 'product_visibility',
+					'field' => 'slug',
+					'terms' => 'exclude-from-catalog',
+					'operator' => 'NOT IN'
+				)
+			)
+		);
+		$products = new \WP_Query($args);
+		//var_dump($products);
+
+		$all_products = $products->posts; // Get all products from the WP_Query object
+
+		if ( ! empty( $all_products ) ) {
+		foreach ( $all_products as $product ) {
+			$product_object = wc_get_product( $product->ID ); // Get the WooCommerce product object
+			$product_name = $product_object->get_name(); // Get the product name from the object
+			echo $product_name . '<br>'; // Display the product name with a line break
+		}
+		} else {
+		echo 'No products found in this category.'; // Handle the case where no products exist
+		}
+
 		?>
 
 	<!-- ***** Category Area Starts ***** -->
@@ -360,7 +396,7 @@ class Hexshop_Category extends Widget_Base {
                 <div class="col-lg-12">
                     
 					<h3>Hello Category</h3>
-					
+
                 </div>
             </div>
         </div>
